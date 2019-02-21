@@ -8,10 +8,10 @@
 */
 
 // PAGE_ACCESS_TOKEN = 'facebook_page_access_token'
-const PAGE_ACCESS_TOKEN = 'EAAfRcE3iHLoBAGCdLMrX4b7xZAaaD8hZCDZBiiQDd26Ls4vIOsuHgZAtkIFToyAJa2JkuvmSm7Lum9XUoSBQkY4hFWt61Aupors2FNTIn1k7Ar3NFCJdO0aO7Y7jZBiUgXtPcVZB0S5EDlZB2IoLyWOg2stLQVXdPuXgsIO0ZAcUowZDZD';
+const PAGE_ACCESS_TOKEN = 'EAAEWKehLl14BACyrHkqqsUoUoZBylHsmg5Pf9B0A4BgB021QkaojpENup2SwpWSfRNHfulmccqG3CcFpNyAudzhWUIk7rQeQ6x0kTYlpWrdZBLyymemja4ZAxujh4mOVp7SthzihYQSYutGjhwtwqViRvp14XJeruO3xAxubgZDZD';
 
 // APIAI_TOKEN = 'dialogflow_client_access_token'
-const APIAI_TOKEN ='f861fe2330ed441491701a3869a43e7a';
+const APIAI_TOKEN ='7266df4034974d5fa42d7c10b02fef32';
 
 const express = require('express');
 const bodyParser = require('body-parser');
