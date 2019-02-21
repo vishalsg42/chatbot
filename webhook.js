@@ -43,7 +43,7 @@ app.get('/', function (req, res) {
 
 /* For Facebook Validation */
 app.get('/webhook', (req, res) => {
- if (req.query['hub.mode'] && req.query['hub.verify_token'] === 'FBVerificationToken') {
+ if (req.query['hub.mode'] && req.query['hub.verify_token'] === 'shopify-messenger-integration') {
    res.status(200).send(req.query['hub.challenge']);
  } else {
    res.status(403).end();
