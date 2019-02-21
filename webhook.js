@@ -113,7 +113,7 @@ app.post('/ai', (req, res) => {
    // password = 'shopify_app_password'
    const password = 'ca1e7b2a49df493443c15f5b5201ee50';
    // shop = 'shop_name'
-   const shop = 'Internal Example Store';
+   const shop = 'internal-example-store';
 
    let restUrl = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/products.json';
 
