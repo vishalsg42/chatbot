@@ -109,11 +109,11 @@ app.post('/ai', (req, res) => {
    console.log('*** product ***');
 
    // username = 'shopify_app_username'
-   const username = 'a1e8fbc8a904bccb54d88f3a72977641';
+   const username = '8e68b0ada51356f5fe79a3bb660133de';
    // password = 'shopify_app_password'
-   const password = '2844a12c2b6703e12acee45778d0b7ae';
+   const password = 'ca1e7b2a49df493443c15f5b5201ee50';
    // shop = 'shop_name'
-   const shop = 'ankita-mestry';
+   const shop = 'Internal Example Store';
 
    let restUrl = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/products.json';
 
