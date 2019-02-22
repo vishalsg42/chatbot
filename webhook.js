@@ -256,7 +256,7 @@ app.post('/ai', (req, res) => {
            }
          ]
        }
-      //  sendListMessege(sender, list)
+       sendListMessege(sender, msg)
       //  break;
 
        return res.send(
