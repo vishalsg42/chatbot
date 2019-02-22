@@ -198,7 +198,7 @@ app.post('/ai', (req, res) => {
          JSON.stringify({
            fulfillmentText: msg,
            source: 'productList'
-          })
+          }),
           console.log('TCL: msg', msg)
          );
 
