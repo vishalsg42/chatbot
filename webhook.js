@@ -128,6 +128,8 @@ app.post('/ai', (req, res) => {
       //    msg += json.products[i].title + "\n";
       //  }
 
+      let msg = "";
+
        msg = {
         attachment: {
             type: "template",
