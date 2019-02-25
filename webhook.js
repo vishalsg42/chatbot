@@ -192,7 +192,7 @@ app.post('/ai', (req, res) => {
          }
         })
         // }
-        console.log('TCL: msg', msg)
+        console.log(msg)
 
       //  let msg = {
       //    "attachment": {
@@ -260,12 +260,12 @@ app.post('/ai', (req, res) => {
       //    }
       //   }
 
-       return res.send({
-        //  JSON.stringify({
+       return res.send(
+         JSON.stringify({
            fulfillmentText: msg,
            source: 'productList'
-          // })
-       });
+          })
+       );
 
      } else {
        let errorMessage = 'I failed to look up the product name.';
