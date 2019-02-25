@@ -84,7 +84,7 @@ function sendMessage(event) {
      method: 'POST',
      json: {
        recipient: { id: sender },
-       message: { text: JSON.stringify(aiText) }
+       message: { text: aiText }
      }
    }, (error, response) => {
      if (error) {
@@ -260,12 +260,12 @@ app.post('/ai', (req, res) => {
       //    }
       //   }
 
-       return res.send(
-         JSON.stringify({
+       return res.send({
+        //  JSON.stringify({
            fulfillmentText: msg,
            source: 'productList'
-          })
-         );
+          // })
+       });
 
      } else {
        let errorMessage = 'I failed to look up the product name.';
