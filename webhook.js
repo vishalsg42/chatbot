@@ -265,7 +265,8 @@ app.post('/ai', (req, res) => {
            fulfillmentText: "msg",
            fulfillmentMessages: msg,
            source: 'productList'
-          })
+          }),
+          console.log('TCL: fulfillmentMessages', fulfillmentMessages)
        );
 
      } else {
