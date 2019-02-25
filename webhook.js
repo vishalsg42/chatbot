@@ -82,10 +82,10 @@ function sendMessage(event) {
      url: 'https://graph.facebook.com/v2.6/me/messages',
      qs: {access_token: PAGE_ACCESS_TOKEN},
      method: 'POST',
-     body: JSON.stringify({
-       recipient: {id: sender},
-       message: msg
-     })
+     json: {
+       recipient: { id: sender },
+       message: { text: aiText }
+     }
    }, (error, response) => {
      if (error) {
        console.log('Error sending message: ', error);
