@@ -128,7 +128,7 @@ app.post('/ai', (req, res) => {
       //    msg += json.products[i].title + "\n";
       //  }
 
-       msg = {
+      let msg = {
            attachment: {
              type: "template",
              payload: {
