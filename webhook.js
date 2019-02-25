@@ -134,8 +134,8 @@ app.post('/ai', (req, res) => {
                  top_element_style: "compact",
                    elements: [
                      {
-                       title: "Classic T-Shirt Collection",
-                       subtitle: "See all our colors",
+                       title: json.products[i].title + "\n",
+                       subtitle: json.products[i].title + "\n",
                        image_url: "https://peterssendreceiveapp.ngrok.io/img/collection.png",
                        buttons: [
                          {
