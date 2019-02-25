@@ -85,15 +85,16 @@ function sendMessage(event) {
      json: {
        recipient: { id: sender },
        message: { text: aiText }
-     }
-   }, (error, response) => {
-     if (error) {
-       console.log('Error sending message: ', error);
-     } else if (response.body.error) {
-       console.log('Error: ', response.body.error);
-     }
-   });
- });
+      }
+    }, (error, response) => {
+      if (error) {
+        console.log('Error sending message: ', error);
+      } else if (response.body.error) {
+        console.log('Error: ', response.body.error);
+      }
+    });
+    console.log('TCL: sendMessage -> request', request);
+  });
 
  apiai.on('error', (error) => {
    console.log(error);
