@@ -84,7 +84,7 @@ function sendMessage(event) {
      method: 'POST',
      json: {
        recipient: { id: sender },
-       message: { text: aiText }
+       message: { text: JSON.stringify(aiText) }
      }
    }, (error, response) => {
      if (error) {
@@ -124,7 +124,7 @@ app.post('/ai', (req, res) => {
       //  Get the name of all products
        let i,msg = "";
 
-       for (i in json.products) {
+      //  for (i in json.products) {
         //  msg += json.products[i].title + "\n";
          msg += {
          "attachment": {
@@ -191,7 +191,7 @@ app.post('/ai', (req, res) => {
            }
          }
         }
-        }
+        // }
         console.log('TCL: msg', msg)
 
       //  let msg = {
