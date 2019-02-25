@@ -82,10 +82,10 @@ function sendMessage(event) {
      url: 'https://graph.facebook.com/v2.6/me/messages',
      qs: {access_token: PAGE_ACCESS_TOKEN},
      method: 'POST',
-     json: {
+     body: JSON.stringify({
        recipient: {id: sender},
-       message: {text: aiText}
-     }
+       message: msg
+     })
    }, (error, response) => {
      if (error) {
        console.log('Error sending message: ', error);
@@ -199,8 +199,7 @@ app.post('/ai', (req, res) => {
          JSON.stringify({
            fulfillmentText: msg,
            source: 'productList'
-          }),
-          console.log('TCL: msg', msg)
+          })
          );
 
      } else {
