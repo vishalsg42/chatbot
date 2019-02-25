@@ -130,7 +130,7 @@ app.post('/ai', (req, res) => {
            attachment: {
              type: "template",
              payload: {
-               template_type: "generic",
+               template_type: "receipt",
                top_element_style: "compact",
                elements: [
                    {
