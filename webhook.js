@@ -127,9 +127,7 @@ app.post('/ai', (req, res) => {
 
       //  for (i in json.products) {
         //  msg += json.products[i].title + "\n";
-         msg += tempdata;
-         
-         var tempdata=JSON.stringify([{
+         msg += JSON.stringify([{
           attachment: {
             type: "template",
             payload: {
@@ -230,12 +228,12 @@ app.post('/ai', (req, res) => {
       //    }
       //   }
 
-       return res.send(
-         JSON.stringify({
+       return res.send({
+        //  JSON.stringify({
            fulfillmentText: msg,
            source: 'productList'
-          })
-       );
+          // })
+       });
 
      } else {
        let errorMessage = 'I failed to look up the product name.';
