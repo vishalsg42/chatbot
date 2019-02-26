@@ -176,13 +176,13 @@ app.post('/ai', (req, res) => {
       //        }
       //      } 
       //  })
-        console.log(Richresponse)
+       console.log(Richresponse)
 
        return res.send(
-        //  JSON.stringify({
-           fulfillmentMessages = Richresponse
+         JSON.stringify({
+         fulfillmentMessages: Richresponse
           //  source: 'productList'
-          // })
+          })
        );
 
      } else {
