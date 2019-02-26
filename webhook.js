@@ -125,7 +125,7 @@ app.post('/ai', (req, res) => {
       //  Get the name of all products
        let i,msg = "";
 
-       for (i in json.products) {
+      //  for (i in json.products) {
         //  msg += json.products[i].title + "\n";
         
        msg += [JSON.stringify({
@@ -135,7 +135,7 @@ app.post('/ai', (req, res) => {
                "template_type": "generic",
                "elements": [
                  {
-                   "title": json.products[i].title,
+                   "title": "Welcome!",
                    "image_url": "https://petersfancybrownhats.com/company_image.png",
                    "subtitle": "We have the right hat for everyone.",
                    "default_action": {
@@ -226,7 +226,7 @@ app.post('/ai', (req, res) => {
       //      }
       //    }
       //   }
-      }
+      // }
        return res.send(
          JSON.stringify({
            fulfillmentText: msg,
