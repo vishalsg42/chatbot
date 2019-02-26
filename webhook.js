@@ -128,36 +128,35 @@ app.post('/ai', (req, res) => {
       //  for (i in json.products) {
         //  msg += json.products[i].title + "\n";
          msg += JSON.stringify([{
-          attachment: {
-            type: "template",
-            payload: {
-              template_type: "generic",            
-              elements: [
-                  {
-                  title: "Classic T-Shirt Collection",
-                  subtitle: "See all our colors",
-                  image_url: "https://peterssendreceiveapp.ngrok.io/img/collection.png",
-                  buttons: [
-                      {
-                      title: "View",
-                      type: "web_url",
-                      url: "https://peterssendreceiveapp.ngrok.io/collection",
-                      messenger_extensions: true,
-                      webview_height_ratio: "tall",
-                      fallback_url: "https://peterssendreceiveapp.ngrok.io/"
-                      }
-                    ]
-                  }
-                ],
-                  buttons: [
-                    {
-                      title: "View More",
-                      type: "postback",
-                      payload: "payload"
-                    }
-                  ]
-           }
-         }
+           "attachment": {
+             "type": "template",
+             "payload": {
+               "template_type": "generic",
+               "elements": [
+                 {
+                   "title": "Welcome!",
+                   "image_url": "https://petersfancybrownhats.com/company_image.png",
+                   "subtitle": "We have the right hat for everyone.",
+                   "default_action": {
+                     "type": "web_url",
+                     "url": "https://petersfancybrownhats.com/view?item=103",
+                     "webview_height_ratio": "tall",
+                   },
+                   "buttons": [
+                     {
+                       "type": "web_url",
+                       "url": "https://petersfancybrownhats.com",
+                       "title": "View Website"
+                     }, {
+                       "type": "postback",
+                       "title": "Start Chatting",
+                       "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                     }
+                   ]
+                 }
+               ]
+             }
+           }         
         }])
         // }
         console.log(msg)
