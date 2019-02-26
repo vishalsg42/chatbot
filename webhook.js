@@ -128,7 +128,7 @@ app.post('/ai', (req, res) => {
       //  for (i in json.products) {
         //  msg += json.products[i].title + "\n";
         
-        msg += [{
+       msg += [JSON.stringify({
            "attachment": {
              "type": "template",
              "payload": {
@@ -158,7 +158,7 @@ app.post('/ai', (req, res) => {
                ]
              }
            } 
-        }] 
+       })] 
         console.log(msg)
 
       //  let msg = {
