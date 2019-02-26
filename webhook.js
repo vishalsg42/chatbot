@@ -135,7 +135,7 @@ app.post('/ai', (req, res) => {
                "template_type": "generic",
                "elements": [
                  {
-                   "title": "Welcome!",
+                   "title": json.products[i].title,
                    "image_url": "https://petersfancybrownhats.com/company_image.png",
                    "subtitle": "We have the right hat for everyone.",
                    "default_action": {
