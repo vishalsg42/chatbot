@@ -143,6 +143,15 @@ app.post('/ai', (req, res) => {
                      "url": "https://petersfancybrownhats.com/view?item=103",
                      "webview_height_ratio": "tall",
                    },
+                   {
+                   "title": "Welcome again!",
+                   "image_url": "https://petersfancybrownhats.com/company_image.png",
+                   "subtitle": "We have the right hat for everyone.",
+                   "default_action": {
+                     "type": "web_url",
+                     "url": "https://petersfancybrownhats.com/view?item=103",
+                     "webview_height_ratio": "tall",
+                   },
                    "buttons": [
                      {
                        "type": "web_url",
