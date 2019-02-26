@@ -178,12 +178,12 @@ app.post('/ai', (req, res) => {
       //  })
        console.log(msg)
 
-       return res.send(
-         JSON.stringify({
-         fulfillmentMessages: msg
+       return res.send({
+        //  JSON.stringify({
+         fulfillmentMessages = msg
           //  source: 'productList'
-          })
-       );
+          // })
+       });
 
      } else {
        let errorMessage = 'I failed to look up the product name.';
