@@ -128,7 +128,7 @@ app.post('/ai', (req, res) => {
       //  for (i in json.products) {
         //  msg += json.products[i].title + "\n";
 
-       let Richresponse = [
+       msg = [
          {
            "card": {
              "title": "Flower",
@@ -176,11 +176,11 @@ app.post('/ai', (req, res) => {
       //        }
       //      } 
       //  })
-       console.log(Richresponse)
+       console.log(msg)
 
        return res.send(
          JSON.stringify({
-         fulfillmentMessages: Richresponse
+         fulfillmentMessages: msg
           //  source: 'productList'
           })
        );
