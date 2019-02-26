@@ -162,7 +162,7 @@ app.post('/ai', (req, res) => {
         console.log(msg)
 
        return res.send(
-         JSON.stringify({           
+         JSON.parse({           
            fulfillmentText: msg,
            source: 'productList'
           })
