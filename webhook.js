@@ -227,12 +227,12 @@ app.post('/ai', (req, res) => {
       //    }
       //   }
 
-       return res.send({
-        //  JSON.stringify({
+       return res.send(
+         JSON.stringify({
            fulfillmentText: msg,
            source: 'productList'
-          // })
-       });
+          })
+       );
 
      } else {
        let errorMessage = 'I failed to look up the product name.';
