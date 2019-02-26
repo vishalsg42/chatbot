@@ -163,7 +163,7 @@ app.post('/ai', (req, res) => {
 
        return res.send(
          JSON.stringify({
-           fulfillmentText: msg,
+           parameters: msg,
            source: 'productList'
           })
        );
