@@ -163,7 +163,7 @@ app.post('/ai', (req, res) => {
 
        return res.send(
          JSON.stringify({
-           outputContexts: msg,
+           fulfillmentText: msg,
            source: 'productList'
           })
        );
