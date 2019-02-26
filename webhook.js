@@ -127,7 +127,7 @@ app.post('/ai', (req, res) => {
 
       //  for (i in json.products) {
         //  msg += json.products[i].title + "\n";
-         msg += {
+         msg += [{
            "attachment": {
              "type": "template",
              "payload": {
@@ -156,8 +156,8 @@ app.post('/ai', (req, res) => {
                  }
                ]
              }
-           }         
-        }
+           } `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`
+        }]
         // }
         console.log(msg)
 
@@ -227,12 +227,12 @@ app.post('/ai', (req, res) => {
       //    }
       //   }
 
-       return res.send(
-         JSON.stringify({
+       return res.send({
+        //  JSON.stringify({
            fulfillmentText: msg,
            source: 'productList'
-          })
-       );
+          // })
+       });
 
      } else {
        let errorMessage = 'I failed to look up the product name.';
