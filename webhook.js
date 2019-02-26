@@ -162,8 +162,7 @@ app.post('/ai', (req, res) => {
         console.log(msg)
 
        return res.send(
-         JSON.stringify({
-           field:richResponse,
+         JSON.stringify({           
            fulfillmentText: msg,
            source: 'productList'
           })
