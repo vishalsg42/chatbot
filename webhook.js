@@ -75,8 +75,8 @@ function sendMessage(event) {
  });
 
  apiai.on('response', (response) => {
-   console.log(response)  
-   let aiText = response.result.fulfillment.messages;
+   console.log(response)
+   let aiText = response.result.fulfillment.speech;
 
    request({
      url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -84,7 +84,7 @@ function sendMessage(event) {
      method: 'POST',
      json: {
        recipient: { id: sender },
-       message: { messages: aiText }
+       message: { text: aiText }
       }
     }, (error, response) => {
       if (error) {
@@ -133,7 +133,7 @@ app.post('/ai', (req, res) => {
              "type": "template",
              "payload": {
                "template_type": "generic",
-               "elements": [
+               "card": [
                  {
                    "title": "Welcome!",
                    "image_url": "https://petersfancybrownhats.com/company_image.png",
