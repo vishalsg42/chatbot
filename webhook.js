@@ -133,7 +133,7 @@ app.post('/ai', (req, res) => {
              "type": "template",
              "payload": {
                "template_type": "generic",
-               "card": [
+               "elements": [
                  {
                    "title": "Welcome!",
                    "image_url": "https://petersfancybrownhats.com/company_image.png",
