@@ -128,7 +128,7 @@ app.post('/ai', (req, res) => {
       //  for (i in json.products) {
         //  msg += json.products[i].title + "\n";
         
-       msg += JSON.parse({
+       msg += JSON.stringify({
            "attachment": {
              "type": "template",
              "payload": {
@@ -162,7 +162,7 @@ app.post('/ai', (req, res) => {
         console.log(msg)
 
        return res.send(
-         JSON.stringify({           
+         JSON.parse({           
            fulfillmentText: msg,
            source: 'productList'
           })
