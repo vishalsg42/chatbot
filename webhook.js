@@ -75,8 +75,7 @@ function sendMessage(event) {
  });
 
  apiai.on('response', (response) => {
-   console.log(response)
-  //  let aiText = response.result.fulfillment.speech;
+   console.log(response)  
    let aiText = response.result.fulfillment.messages;
 
    request({
@@ -85,7 +84,7 @@ function sendMessage(event) {
      method: 'POST',
      json: {
        recipient: { id: sender },
-       message: { text: aiText }
+       message: { messages: aiText }
       }
     }, (error, response) => {
       if (error) {
