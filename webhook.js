@@ -81,8 +81,8 @@ function sendMessage(event) {
 
   apiai.on('response', (response) => {
     console.log(response)
-    // let aiText = response.result.fulfillment.messages;
-    let aiText = JSON.stringify(response.msg);
+    let aiText = response.result.fulfillment.messages;
+    // let aiText = JSON.stringify(response.msg);
     console.log('TCL: sendMessage -> aiText', aiText)
     
     // let { attachment } = aiText;
@@ -92,6 +92,7 @@ function sendMessage(event) {
       qs: { access_token: PAGE_ACCESS_TOKEN },
       method: 'POST',
       json: {
+        'messaging_type': 'RESPONSE',
         recipient: { id: sender },
         message: { attachment: aiText }
       }
@@ -170,11 +171,11 @@ app.post('/ai', (req, res) => {
         console.log(msg)
 
         return res.send(
-          // JSON.stringify({
-          //   fulfillmentMessages: msg,
-          //   source: 'productList'
-          // })
-          msg
+          JSON.stringify({
+            fulfillmentMessages: msg,
+            source: 'Facebook'
+          })
+          // msg
         );
 
       } else {
