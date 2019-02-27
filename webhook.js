@@ -16,10 +16,14 @@ const APIAI_TOKEN = '7266df4034974d5fa42d7c10b02fef32';
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-const apiai = require('apiai');
+// const apiai = require('apiai');
+const google = require("actions-on-google");
+const dialogflow = require("dialogflow");
+const { WebhookClient } = require('dialogflow');
+const { Card } = require('dialogflow');
 
 const app = express();
-const apiaiApp = apiai(APIAI_TOKEN);
+// const apiaiApp = apiai(APIAI_TOKEN);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,53 +70,53 @@ app.post('/webhook', (req, res) => {
 
 /* GET query from API.ai */
 
-function sendMessage(event) {
-  let sender = event.sender.id;
-  let text = event.message.text;
-  let attachment = event.message.attachments;
-	console.log('TCL: sendMessage -> attachment', attachment)
+// function sendMessage(event) {
+//   let sender = event.sender.id;
+//   let text = event.message.text;
+//   let attachment = event.message.attachments;
+// 	console.log('TCL: sendMessage -> attachment', attachment)
 
-  //  let apiai = apiaiApp.textRequest(text, {
-  //    sessionId: 'shopify_bot'
-  //  });
+//   //  let apiai = apiaiApp.textRequest(text, {
+//   //    sessionId: 'shopify_bot'
+//   //  });
 
-  let apiai = apiaiApp.textRequest(text, {
-    sessionId: 'shopify_bot'
-  });
+//   let apiai = apiaiApp.textRequest(text, {
+//     sessionId: 'shopify_bot'
+//   });
 
-  apiai.on('response', (response) => {
-    console.log(response)
-    let aiText = response.result.fulfillment.messages;
-    // let aiText = JSON.stringify(response.msg);
-    console.log('TCL: sendMessage -> aiText', aiText)
+//   apiai.on('response', (response) => {
+//     console.log(response)
+//     let aiText = response.result.fulfillment.messages;
+//     // let aiText = JSON.stringify(response.msg);
+//     console.log('TCL: sendMessage -> aiText', aiText)
     
-    // let { attachment } = aiText;
+//     // let { attachment } = aiText;
 
-    request({
-      url: 'https://graph.facebook.com/v2.6/me/messages',
-      qs: { access_token: PAGE_ACCESS_TOKEN },
-      method: 'POST',
-      json: {
-        'messaging_type': 'RESPONSE',
-        recipient: { id: sender },
-        message: { attachment: aiText }
-      }
-    }, (error, response) => {
-      if (error) {
-        console.log('Error sending message: ', error);
-      } else if (response.body.error) {
-        console.log('Error: ', response.body.error);
-      }
-    });
-    console.log('TCL: sendMessage -> request', request);
-  });
+//     request({
+//       url: 'https://graph.facebook.com/v2.6/me/messages',
+//       qs: { access_token: PAGE_ACCESS_TOKEN },
+//       method: 'POST',
+//       json: {
+//         'messaging_type': 'RESPONSE',
+//         recipient: { id: sender },
+//         message: { attachment: aiText }
+//       }
+//     }, (error, response) => {
+//       if (error) {
+//         console.log('Error sending message: ', error);
+//       } else if (response.body.error) {
+//         console.log('Error: ', response.body.error);
+//       }
+//     });
+//     console.log('TCL: sendMessage -> request', request);
+//   });
 
-  apiai.on('error', (error) => {
-    console.log(error);
-  });
+//   apiai.on('error', (error) => {
+//     console.log(error);
+//   });
 
-  apiai.end();
-}
+//   apiai.end();
+// }
 
 /* Webhook for API.ai to get response from the 3rd party API */
 app.post('/ai', (req, res) => {
@@ -193,12 +197,9 @@ app.post('/ai', (req, res) => {
   }
 });
 
-// // card
-// const { WebhookClient } = require('dialogflow-fulfillment');
-// const { Card } = require('dialogflow-fulfillment');
-
-// const agent = new WebhookClient({ request, response });
-// console.log('TCL: agent', agent)
+// card
+const agent = new WebhookClient({ request, response });
+console.log('TCL: agent', agent)
 
 
 // agent.add(`Check this out`);
