@@ -130,7 +130,7 @@ app.post('/ai', (req, res) => {
 
         msg = [
           {
-            "generic": {
+            "card": {
               "title": "Flower",
               "subtitle": "Red Flower",
               "imageUri": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower1.jpg?alt=media&token=b3342402-855f-416c-a486-72a631350e7f",
