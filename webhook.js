@@ -19,8 +19,9 @@ const request = require('request');
 // const apiai = require('apiai');
 const google = require("actions-on-google");
 const dialogflow = require("dialogflow");
-const { WebhookClient } = require('dialogflow');
-const { Card } = require('dialogflow');
+const dialogflow_fulfillment = require("dialogflow-fulfillment");
+const { WebhookClient } = dialogflow_fulfillment;
+const { Card } = dialogflow;
 
 const app = express();
 // const apiaiApp = apiai(APIAI_TOKEN);
@@ -200,6 +201,5 @@ app.post('/ai', (req, res) => {
 // card
 const agent = new WebhookClient({ request, response });
 console.log('TCL: agent', agent)
-
 
 // agent.add(`Check this out`);
