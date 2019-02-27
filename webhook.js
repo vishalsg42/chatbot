@@ -85,7 +85,7 @@ function sendMessage(event) {
      json: {
        recipient: { id: sender },
       //  message: { text: aiText }
-      message: response.result
+      message: messageData,
       }
     }, (error, response) => {
       if (error) {
@@ -124,13 +124,13 @@ app.post('/ai', (req, res) => {
        let json = JSON.parse(body);
 
       //  Get the name of all products
-       let i,msg = "";
+      //  let i,msg = "";
 
       //  for (i in json.products) {
         //  msg += json.products[i].title + "\n";
 
-       msg = [
-         {
+      //  msg = [
+        //  {
           //  "card": {
           //    "title": "Flower",
           //    "subtitle": "Red Flower",
@@ -145,37 +145,37 @@ app.post('/ai', (req, res) => {
           //    ]
           //  },
           //  "platform": "FACEBOOK"
-           "attachment": {
-             "type": "template",
-             "payload": {
-               "template_type": "generic",
-               "elements": [
-                 {
-                   "title": "Welcome!",
-                   "image_url": "https://petersfancybrownhats.com/company_image.png",
-                   "subtitle": "We have the right hat for everyone.",
-                   "default_action": {
-                     "type": "web_url",
-                     "url": "https://petersfancybrownhats.com/view?item=103",
-                     "webview_height_ratio": "tall",
-                   },
-                   "buttons": [
-                     {
-                       "type": "web_url",
-                       "url": "https://petersfancybrownhats.com",
-                       "title": "View Website"
-                     }, {
-                       "type": "postback",
-                       "title": "Start Chatting",
-                       "payload": "DEVELOPER_DEFINED_PAYLOAD"
-                     }
-                   ]
-                 }
-               ]
-             }
-           } 
-         }
-       ]
+      //      "attachment": {
+      //        "type": "template",
+      //        "payload": {
+      //          "template_type": "generic",
+      //          "elements": [
+      //            {
+      //              "title": "Welcome!",
+      //              "image_url": "https://petersfancybrownhats.com/company_image.png",
+      //              "subtitle": "We have the right hat for everyone.",
+      //              "default_action": {
+      //                "type": "web_url",
+      //                "url": "https://petersfancybrownhats.com/view?item=103",
+      //                "webview_height_ratio": "tall",
+      //              },
+      //              "buttons": [
+      //                {
+      //                  "type": "web_url",
+      //                  "url": "https://petersfancybrownhats.com",
+      //                  "title": "View Website"
+      //                }, {
+      //                  "type": "postback",
+      //                  "title": "Start Chatting",
+      //                  "payload": "DEVELOPER_DEFINED_PAYLOAD"
+      //                }
+      //              ]
+      //            }
+      //          ]
+      //        }
+      //      } 
+      //    }
+      //  ]
       //      "attachment": {
       //        "type": "template",
       //        "payload": {
@@ -206,14 +206,46 @@ app.post('/ai', (req, res) => {
       //        }
       //      } 
       //  })
-       console.log(msg)
+      //  console.log(msg)
+       let messageData = {
+         "attachment": {
+           "type": "template",
+           "payload": {
+             "template_type": "generic",
+             "elements": [{
+               "title": "First card",
+               "subtitle": "Element #1 of an hscroll",
+               "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+               "buttons": [{
+                 "type": "web_url",
+                 "url": "https://www.messenger.com",
+                 "title": "web url"
+               }, {
+                 "type": "postback",
+                 "title": "Postback",
+                 "payload": "Payload for first element in a generic bubble",
+               }],
+             }, {
+               "title": "Second card",
+               "subtitle": "Element #2 of an hscroll",
+               "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+               "buttons": [{
+                 "type": "postback",
+                 "title": "Postback",
+                 "payload": "Payload for second element in a generic bubble",
+               }],
+             }]
+           }
+         }
+        }
 
        return res.send(
-         JSON.stringify({
-           fulfillmentText: "msg",  
-         fulfillmentMessages: msg,
-           source: 'productList'
-          })
+        //  JSON.stringify({
+          //  fulfillmentText: "msg",  
+          //  fulfillmentMessages: messageData,
+          //  source: 'productList'
+          // })
+          messageData
        );
 
      } else {
