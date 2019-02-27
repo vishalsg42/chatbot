@@ -80,7 +80,7 @@ function sendMessage(event) {
   });
 
   apiai.on('response', (response) => {
-    // console.log(response)
+    console.log(response)
     let aiText = response.result.fulfillment.messages;
     console.log('TCL: sendMessage -> aiText', aiText)
     
@@ -138,7 +138,6 @@ app.post('/ai', (req, res) => {
         // }
 
         let msg = {
-          "attachment": {
             "type": "template",
             "payload": {
               "template_type": "generic",
@@ -165,7 +164,6 @@ app.post('/ai', (req, res) => {
                   ]
                 }
               ]
-            }
           }
         }
         console.log(msg)
