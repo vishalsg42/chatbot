@@ -140,6 +140,7 @@ app.post('/ai', (req, res) => {
         // }
 
         let msg = {
+          "attachment":{
             "type": "template",
             "payload": {
               "template_type": "generic",
@@ -167,6 +168,7 @@ app.post('/ai', (req, res) => {
                 }
               ]
           }
+        }
         }
         console.log(msg)
 
