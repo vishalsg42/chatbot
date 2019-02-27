@@ -139,7 +139,7 @@ app.post('/ai', (req, res) => {
         //   msg += json.products[i].title + "\n";
         // }
 
-        let msg = [{
+        let msg = [
             "type": "template",
             "payload": {
               "template_type": "generic",
@@ -167,7 +167,7 @@ app.post('/ai', (req, res) => {
                 }
               ]
           }
-        }]
+        ]
         console.log(msg)
 
         return res.send(
