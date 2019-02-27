@@ -151,8 +151,6 @@ app.post('/ai', (req, res) => {
 
         msg = [
           {
-          "type": "template",
-          "payload": {                    
             "card": {
               "title": "Flower",
               "subtitle": "Red Flower",
@@ -169,9 +167,8 @@ app.post('/ai', (req, res) => {
               ]
             },
             "platform": "FACEBOOK"
-        }
-      }
-    ]
+          }
+        ]
 
         console.log(msg)
 
