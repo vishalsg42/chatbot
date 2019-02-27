@@ -121,6 +121,8 @@ app.post('/webhook', (req, res) => {
 
 /* Webhook for API.ai to get response from the 3rd party API */
 app.post('/ai', (req, res) => {
+  const agent = new WebhookClient({ request: request, response: response });
+  console.log('TCL: agent', agent)
   /* Shopify API call for product */
   if (req.body.queryResult.action === 'productList') {
     console.log('*** product ***');
@@ -199,7 +201,7 @@ app.post('/ai', (req, res) => {
 });
 
 // card
-const agent = new WebhookClient({ request: request, response: response });
-console.log('TCL: agent', agent)
+// const agent = new WebhookClient({ request: request, response: response });
+// console.log('TCL: agent', agent)
 
 // agent.add(`Check this out`);
