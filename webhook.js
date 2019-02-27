@@ -80,8 +80,9 @@ function sendMessage(event) {
   });
 
   apiai.on('response', (response) => {
-    console.log(response)
-    let aiText = response.result.fulfillment.speech;
+    // console.log(response)
+    let aiText = response.result.fulfillment.messages;
+		console.log('TCL: sendMessage -> aiText', aiText)
 
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
