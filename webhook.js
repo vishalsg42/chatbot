@@ -20,7 +20,7 @@ const request = require('request');
 const google = require("actions-on-google");
 const dialogflow = require("dialogflow");
 const dialogflow_fulfillment = require("dialogflow-fulfillment");
-const { WebhookClient } = dialogflow_fulfillment;
+const { WebhookClient } = require("dialogflow-fulfillment");
 const { Card } = dialogflow;
 
 const app = express();
@@ -199,7 +199,7 @@ app.post('/ai', (req, res) => {
 });
 
 // card
-const agent = new WebhookClient({ request, response });
+const agent = new WebhookClient({ request: request, response: response });
 console.log('TCL: agent', agent)
 
 // agent.add(`Check this out`);
