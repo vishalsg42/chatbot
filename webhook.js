@@ -172,6 +172,7 @@ app.post('/ai', (req, res) => {
 
         return res.send(
           JSON.stringify({
+            fulfillmentText: "ABC",
             fulfillmentMessages: [msg],
             source: 'Facebook'
           })
