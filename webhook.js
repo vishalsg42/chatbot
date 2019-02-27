@@ -207,7 +207,7 @@ app.post('/ai', (req, res) => {
       //      } 
       //  })
       //  console.log(msg)
-       let messageData = {
+       let messageData = [{
          "attachment": {
            "type": "template",
            "payload": {
@@ -237,7 +237,7 @@ app.post('/ai', (req, res) => {
              }]
            }
          }
-        }
+        }]
 
        return res.send(
          JSON.stringify({
