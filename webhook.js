@@ -84,7 +84,7 @@ function sendMessage(event) {
     let aiText = response.result.fulfillment.messages;
     console.log('TCL: sendMessage -> aiText', aiText)
     
-    let { attachment } = aiText;
+    // let { attachment } = aiText;
 
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -92,7 +92,7 @@ function sendMessage(event) {
       method: 'POST',
       json: {
         recipient: { id: sender },
-        message: { attachment: attachment }
+        message: { attachment: aiText }
       }
     }, (error, response) => {
       if (error) {
