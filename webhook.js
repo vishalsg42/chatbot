@@ -152,28 +152,23 @@ app.post('/ai', (req, res) => {
         msg = [
           {
           "type": "template",
-          "payload": {
-          "template_type": "generic",
-            "elements": [
-              {
-                "card": {
-                  "title": "Flower",
-                  "subtitle": "Red Flower",
-                  "imageUri": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower1.jpg?alt=media&token=b3342402-855f-416c-a486-72a631350e7f",
-                  "buttons": [
-                    {
-                      "text": "Visit Google",
-                      "postback": "www.google.com"
-                    },
-                    {
-                      "text": "Visit Dialogflow",
-                      "postback": "www.dialogflow.com"
-                    }
-                  ]
+          "payload": {                    
+            "card": {
+              "title": "Flower",
+              "subtitle": "Red Flower",
+              "imageUri": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower1.jpg?alt=media&token=b3342402-855f-416c-a486-72a631350e7f",
+              "buttons": [
+                {
+                  "text": "Visit Google",
+                  "postback": "www.google.com"
                 },
-                "platform": "FACEBOOK"
-              }
-            ]
+                {
+                  "text": "Visit Dialogflow",
+                  "postback": "www.dialogflow.com"
+                }
+              ]
+            },
+            "platform": "FACEBOOK"
         }
       }
     ]
