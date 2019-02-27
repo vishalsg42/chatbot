@@ -69,6 +69,14 @@ app.post('/webhook', (req, res) => {
 function sendMessage(event) {
   let sender = event.sender.id;
   let text = event.message.text;
+<<<<<<< HEAD
+  let attachment = event.message.attachments;
+
+  //  let apiai = apiaiApp.textRequest(text, {
+  //    sessionId: 'shopify_bot'
+  //  });
+=======
+>>>>>>> f22d79be13ac9d5b610f0e6e2b18b20dcb4aeae9
 
   let apiai = apiaiApp.textRequest(text, {
     sessionId: 'shopify_bot'
@@ -121,6 +129,14 @@ app.post('/ai', (req, res) => {
       if (!err && response.statusCode == 200) {
         let json = JSON.parse(body);
 
+<<<<<<< HEAD
+        //  Get the name of all products
+        let i, msg = "";
+
+        for (i in json.products) {
+          msg += json.products[i].title + "\n";
+        }
+=======
         // Get the name of all products
         let i, j, msg = "";
 
@@ -210,11 +226,16 @@ app.post('/ai', (req, res) => {
           }
         ]
 
+>>>>>>> f22d79be13ac9d5b610f0e6e2b18b20dcb4aeae9
         console.log(msg)
 
         return res.send(
           JSON.stringify({
+<<<<<<< HEAD
+            fulfillmentText: msg,
+=======
             fulfillmentMessages: msg,
+>>>>>>> f22d79be13ac9d5b610f0e6e2b18b20dcb4aeae9
             source: 'productList'
           })
         );
@@ -230,4 +251,18 @@ app.post('/ai', (req, res) => {
       }
     })
   }
+<<<<<<< HEAD
 });
+
+// card
+const { WebhookClient } = require('dialogflow-fulfillment');
+const { Card } = require('dialogflow-fulfillment');
+
+const agent = new WebhookClient({ request, response });
+console.log('TCL: agent', agent)
+
+
+agent.add(`Check this out`);
+=======
+});
+>>>>>>> f22d79be13ac9d5b610f0e6e2b18b20dcb4aeae9
