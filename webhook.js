@@ -81,7 +81,7 @@ function sendMessage(event) {
 
   apiai.on('response', (response) => {
     // console.log(response)
-    let aiText = response.result.fulfillment.speech;
+    let aiText = response.result.fulfillment.messages;
     console.log('TCL: sendMessage -> aiText', aiText)
     
     // let { attachment } = aiText;
@@ -92,7 +92,7 @@ function sendMessage(event) {
       method: 'POST',
       json: {
         recipient: { id: sender },
-        message: { text: aiText }
+        message: { attachment: aiText }
       }
     }, (error, response) => {
       if (error) {
@@ -172,7 +172,7 @@ app.post('/ai', (req, res) => {
 
         return res.send(
           JSON.stringify({
-            fulfillmentText: msg,
+            fulfillmentMessages: msg,
             source: 'productList'
           })
         );
