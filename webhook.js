@@ -81,7 +81,7 @@ function sendMessage(event) {
 
   apiai.on('response', (response) => {
     console.log(response)
-    let aiText = response.result.fulfillment.messages;
+    let aiText = queryResult.fulfillmentMessages;
     // let aiText = JSON.stringify(response.msg);
     console.log('TCL: sendMessage -> aiText', aiText)
     
@@ -139,7 +139,7 @@ app.post('/ai', (req, res) => {
         //   msg += json.products[i].title + "\n";
         // }
 
-        let msg = [
+        let msg = {
             "type": "template",
             "payload": {
               "template_type": "generic",
@@ -167,12 +167,12 @@ app.post('/ai', (req, res) => {
                 }
               ]
           }
-        ]
+      }
         console.log(msg)
 
         return res.send(
           JSON.stringify({
-            fulfillmentMessages: msg,
+            fulfillmentMessages: [msg],
             source: 'Facebook'
           })
           // msg
