@@ -69,10 +69,15 @@ app.post('/webhook', (req, res) => {
 function sendMessage(event) {
  let sender = event.sender.id;
  let text = event.message.text;
+ let attachment = event.message.attachments;
 
- let apiai = apiaiApp.textRequest(text, {
-   sessionId: 'shopify_bot'
- });
+//  let apiai = apiaiApp.textRequest(text, {
+//    sessionId: 'shopify_bot'
+//  });
+
+  let apiai = apiaiApp.textRequest(attachment, {
+    sessionId: 'shopify_bot'
+  });
 
  apiai.on('response', (response) => {
    console.log(response)
@@ -84,7 +89,7 @@ function sendMessage(event) {
      method: 'POST',
      json: {
        recipient: { id: sender },
-       message: { text: aiText }
+       message: { attachment: aiText }
       // message: messageData,
       }
     }, (error, response) => {
