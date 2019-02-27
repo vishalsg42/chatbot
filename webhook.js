@@ -90,7 +90,7 @@ function sendMessage(event) {
       method: 'POST',
       json: {
         recipient: { id: sender },
-        message: { message: aiText }
+        message: { aiText }
       }
     }, (error, response) => {
       if (error) {
