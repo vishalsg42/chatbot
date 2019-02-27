@@ -92,7 +92,7 @@ function sendMessage(event) {
       method: 'POST',
       json: {
         recipient: { id: sender },
-        message: { attachment }
+        message: { attachment: attachment }
       }
     }, (error, response) => {
       if (error) {
