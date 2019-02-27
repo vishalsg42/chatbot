@@ -80,7 +80,7 @@ function sendMessage(event) {
     sessionId: 'shopify_bot'
   });
 
-  apiai.on('response', (response, request) => {
+  apiai.on('response', (response) => {
     console.log(response)
     let aiText = response.result.fulfillment.messages;
     // let aiText = JSON.stringify(response.msg);
