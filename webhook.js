@@ -70,6 +70,7 @@ function sendMessage(event) {
   let sender = event.sender.id;
   let text = event.message.text;
   let attachment = event.message.attachments;
+	console.log('TCL: sendMessage -> attachment', attachment)
 
   //  let apiai = apiaiApp.textRequest(text, {
   //    sessionId: 'shopify_bot'
@@ -79,7 +80,7 @@ function sendMessage(event) {
     sessionId: 'shopify_bot'
   });
 
-  apiai.on('response', (response) => {
+  apiai.on('response', (response, request) => {
     console.log(response)
     let aiText = response.result.fulfillment.messages;
     // let aiText = JSON.stringify(response.msg);
