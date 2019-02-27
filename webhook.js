@@ -89,37 +89,7 @@ function sendMessage(event) {
       method: 'POST',
       json: {
         recipient: { id: sender },
-        "message": {
-          "attachment": {
-            "type": "template",
-            "payload": {
-              "template_type": "generic",
-              "elements": [
-                {
-                  "title": "Welcome!",
-                  "image_url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
-                  "subtitle": "We have the right hat for everyone.",
-                  "default_action": {
-                    "type": "web_url",
-                    "url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
-                    "webview_height_ratio": "tall",
-                  },
-                  "buttons": [
-                    {
-                      "type": "web_url",
-                      "url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
-                      "title": "View Website"
-                    }, {
-                      "type": "postback",
-                      "title": "Start Chatting",
-                      "payload": "DEVELOPER_DEFINED_PAYLOAD"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        }
+        message: { message: aiText }
       }
     }, (error, response) => {
       if (error) {
@@ -158,10 +128,42 @@ app.post('/ai', (req, res) => {
         let json = JSON.parse(body);
 
         //  Get the name of all products
-        let i, msg = "";
+        // let i, msg = "";
 
-        for (i in json.products) {
-          msg += json.products[i].title + "\n";
+        // for (i in json.products) {
+        //   msg += json.products[i].title + "\n";
+        // }
+
+        let msg = {
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": [
+                {
+                  "title": "Welcome!",
+                  "image_url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
+                  "subtitle": "We have the right hat for everyone.",
+                  "default_action": {
+                    "type": "web_url",
+                    "url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
+                    "webview_height_ratio": "tall",
+                  },
+                  "buttons": [
+                    {
+                      "type": "web_url",
+                      "url": "https://petersfancybrownhats.com",
+                      "title": "View Website"
+                    }, {
+                      "type": "postback",
+                      "title": "Start Chatting",
+                      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
         }
         console.log(msg)
 
