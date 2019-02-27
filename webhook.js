@@ -124,9 +124,30 @@ app.post('/ai', (req, res) => {
         // Get the name of all products
         let i, j, msg = "";
 
-        for (i in json.products) {
-          msg += json.products[i].title + "\n";
-        }
+        // for (i in json.products) {
+        //   msg += json.products[i].title + "\n";
+        // }
+
+        msg = [
+          {
+            "card": {
+              "title": "Flower",
+              "subtitle": "Red Flower",
+              "imageUri": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower1.jpg?alt=media&token=b3342402-855f-416c-a486-72a631350e7f",
+              "buttons": [
+                {
+                  "text": "Visit Google",
+                  "postback": "www.google.com"
+                },
+                {
+                  "text": "Visit Dialogflow",
+                  "postback": "www.dialogflow.com"
+                }
+              ]
+            },
+            "platform": "FACEBOOK"
+          }
+        ]
 
         return res.send(
           JSON.stringify({
