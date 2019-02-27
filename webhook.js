@@ -81,7 +81,7 @@ function sendMessage(event) {
 
   apiai.on('response', (response) => {
     console.log(response)
-    let aiText = queryResult.fulfillmentMessages;
+    let aiText = response.queryResult.fulfillmentMessages;
     // let aiText = JSON.stringify(response.msg);
     console.log('TCL: sendMessage -> aiText', aiText)
     
