@@ -69,11 +69,6 @@ app.post('/webhook', (req, res) => {
 function sendMessage(event) {
   let sender = event.sender.id;
   let text = event.message.text;
-  let attachment = event.message.attachments;
-
-  //  let apiai = apiaiApp.textRequest(text, {
-  //    sessionId: 'shopify_bot'
-  //  });
 
   let apiai = apiaiApp.textRequest(text, {
     sessionId: 'shopify_bot'
@@ -98,7 +93,6 @@ function sendMessage(event) {
         console.log('Error: ', response.body.error);
       }
     });
-    console.log('TCL: sendMessage -> request', request);
   });
 
   apiai.on('error', (error) => {
@@ -127,40 +121,12 @@ app.post('/ai', (req, res) => {
       if (!err && response.statusCode == 200) {
         let json = JSON.parse(body);
 
-        //  Get the name of all products
-        let i, msg = "";
-
-        for (i in json.products) {
-          msg += json.products[i].title + "\n";
-        }
-
         // Get the name of all products
         let i, j, msg = "";
 
         // for (i in json.products) {
         //   msg += json.products[i].title + "\n";
         // }
-
-        // msg = [
-        //   {
-        //     "card": {
-        //       "title": "Flower",
-        //       "subtitle": "Red Flower",
-        //       "imageUri": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower1.jpg?alt=media&token=b3342402-855f-416c-a486-72a631350e7f",
-        //       "buttons": [
-        //         {
-        //           "text": "Visit Google",
-        //           "postback": "www.google.com"
-        //         },
-        //         {
-        //           "text": "Visit Dialogflow",
-        //           "postback": "www.dialogflow.com"
-        //         }
-        //       ]
-        //     },
-        //     "platform": "FACEBOOK"
-        //   }
-        // ]
 
         msg = [
           {
@@ -173,7 +139,7 @@ app.post('/ai', (req, res) => {
                   "order_number": "12345678902",
                   "currency": "USD",
                   "payment_method": "Visa 2345",
-                  "order_url": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower1.jpg?alt=media&token=b3342402-855f-416c-a486-72a631350e7f",
+                  "order_url": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower4.jpg?alt=media&token=0efc8cf4-a054-4efb-863d-884f3608a671",
                   "timestamp": "1428444852",
                   "address": {
                     "street_1": "1 Hacker Way",
@@ -206,7 +172,7 @@ app.post('/ai', (req, res) => {
                       "quantity": 2,
                       "price": 50,
                       "currency": "USD",
-                      "image_url": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower1.jpg?alt=media&token=b3342402-855f-416c-a486-72a631350e7f"
+                      "image_url": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower4.jpg?alt=media&token=0efc8cf4-a054-4efb-863d-884f3608a671"
                     },
                     {
                       "title": "Classic Gray T-Shirt",
@@ -214,20 +180,20 @@ app.post('/ai', (req, res) => {
                       "quantity": 1,
                       "price": 25,
                       "currency": "USD",
-                      "image_url": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower1.jpg?alt=media&token=b3342402-855f-416c-a486-72a631350e7f"
+                      "image_url": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower4.jpg?alt=media&token=0efc8cf4-a054-4efb-863d-884f3608a671"
                     }
                   ]
                 }
               }
-            }
           }
+        }
         ]
 
         console.log(msg)
 
         return res.send(
           JSON.stringify({
-            fulfillmentText: msg,
+            fulfillmentMessages: msg,
             source: 'productList'
           })
         );
@@ -244,13 +210,3 @@ app.post('/ai', (req, res) => {
     })
   }
 });
-
-// card
-const { WebhookClient } = require('dialogflow-fulfillment');
-const { Card } = require('dialogflow-fulfillment');
-
-const agent = new WebhookClient({ request, response });
-console.log('TCL: agent', agent)
-
-
-agent.add(`Check this out`);
