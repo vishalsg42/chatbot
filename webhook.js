@@ -155,12 +155,12 @@ app.post('/ai', (req, res) => {
   }
 });
 
-// card
-const { WebhookClient } = require('dialogflow-fulfillment');
-const { Card } = require('dialogflow-fulfillment');
+// // card
+// const { WebhookClient } = require('dialogflow-fulfillment');
+// const { Card } = require('dialogflow-fulfillment');
 
-const agent = new WebhookClient({ request, response });
-console.log('TCL: agent', agent)
+// const agent = new WebhookClient({ request, response });
+// console.log('TCL: agent', agent)
 
 
-agent.add(`Check this out`);
+// agent.add(`Check this out`);
