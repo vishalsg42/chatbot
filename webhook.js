@@ -89,7 +89,37 @@ function sendMessage(event) {
       method: 'POST',
       json: {
         recipient: { id: sender },
-        message: { text: aiText }
+        "message": {
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": [
+                {
+                  "title": "Welcome!",
+                  "image_url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
+                  "subtitle": "We have the right hat for everyone.",
+                  "default_action": {
+                    "type": "web_url",
+                    "url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
+                    "webview_height_ratio": "tall",
+                  },
+                  "buttons": [
+                    {
+                      "type": "web_url",
+                      "url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
+                      "title": "View Website"
+                    }, {
+                      "type": "postback",
+                      "title": "Start Chatting",
+                      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
       }
     }, (error, response) => {
       if (error) {
