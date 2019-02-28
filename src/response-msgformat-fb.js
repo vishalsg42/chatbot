@@ -49,7 +49,7 @@ module.exports.responseFormat = (msg,datafetch) => {
       }
     };
     
-    debug("message pass is" , message)
+    // debug("message pass is" , message)
     return sendMessage.sendTextMessage(message);
   }
 }
