@@ -29,7 +29,7 @@ app.post('/fbwebhook', messageWebhook);
 // Dialogflow webhook
 app.post('/dialogflow', handleAction);
 
-app.listen(8000, () => {
+app.listen(process.env.PORT || 8000, () => {
   console.log(`App is running on port 8000`)
   // debug(`App is running on ${chalk.green(8000)}`);
 });
