@@ -77,7 +77,7 @@ function sendMessage(event) {
   apiai.on('response', (response) => {
     console.log(response)
     let aiText = response.result.fulfillment.speech;
-    let msgdata=JSON.stringify(msg);
+    let msgdata=JSON.stringify(aiText);
     console.log("MessageData: "+msgdata);
 
     request({
