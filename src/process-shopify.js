@@ -10,7 +10,7 @@ let productApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin
 
 module.exports = (datafetch) => {
   request.get(productApi, (err, response, body) => {
-    if (!err && response.statusCode == 200 && datafetch == 'productlist') {
+    if (!err && response.statusCode == 200 && datafetch == 'productList') {
       let json = JSON.parse(body);
 
       // debug('\n\n json------\n',json);
