@@ -13,7 +13,7 @@ const responseFormat = require('./response-msgformat-fb');
 const projectId = "agent-anonym";
 const sessionId = '123456';
 const languageCode = 'en-US';
-const PAGE_ACCESS_TOKEN = 'EAAEWKehLl14BACyrHkqqsUoUoZBylHsmg5Pf9B0A4BgB021QkaojpENup2SwpWSfRNHfulmccqG3CcFpNyAudzhWUIk7rQeQ6x0kTYlpWrdZBLyymemja4ZAxujh4mOVp7SthzihYQSYutGjhwtwqViRvp14XJeruO3xAxubgZDZD';
+const PAGE_ACCESS_TOKEN = 'EAAQ4elkZCrUgBAFVXMFL8f4xOltL4a65jq2pwskopXMjOHdpZAiDRrL3KC7ZB7Iw1YutkVcoOpHrg87OOZAVCB6oV4II3Rrky6XJTES9NqkiHx9HKVq4zqjsmXsDQh3ZB8ZAJTtACFYvc2mNTn2ZAZAlEXBzTE1tgmZCZCXqRXtZBEdBrvMf2G91IRj';
 
 // debug(PAGE_ACCESS_TOKEN);
 
