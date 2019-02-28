@@ -2,9 +2,9 @@
 const responseFormat = require('./response-msgformat-fb');
 const request = require('request');
 
-const username = process.env.username;
-const password = process.env.password;
-const shop = process.env.shop;
+const username = '8e68b0ada51356f5fe79a3bb660133de';
+const password = 'ca1e7b2a49df493443c15f5b5201ee50';
+const shop = "internal-example-store";
 
 let productApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/products.json';
 

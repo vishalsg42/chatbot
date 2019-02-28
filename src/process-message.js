@@ -13,7 +13,7 @@ const responseFormat = require('./response-msgformat-fb');
 const projectId = process.env.PROJECT_ID;
 const sessionId = '123456';
 const languageCode = 'en-US';
-const { PAGE_ACCESS_TOKEN } = process.env;
+const PAGE_ACCESS_TOKEN = 'EAAEWKehLl14BACyrHkqqsUoUoZBylHsmg5Pf9B0A4BgB021QkaojpENup2SwpWSfRNHfulmccqG3CcFpNyAudzhWUIk7rQeQ6x0kTYlpWrdZBLyymemja4ZAxujh4mOVp7SthzihYQSYutGjhwtwqViRvp14XJeruO3xAxubgZDZD';
 
 // debug(PAGE_ACCESS_TOKEN);
 
