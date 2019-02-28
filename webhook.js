@@ -78,7 +78,7 @@ function sendMessage(event) {
     console.log(response)
     let aiText = response.result.fulfillment.speech;
     let msgdata=JSON.stringify(msg);
-    // console.log(msg);
+    console.log("MessageData: "+msgdata);
 
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
