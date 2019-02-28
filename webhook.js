@@ -16,15 +16,10 @@ const APIAI_TOKEN = '7266df4034974d5fa42d7c10b02fef32';
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
-// const apiai = require('apiai');
-const google = require("actions-on-google");
-const dialogflow = require("dialogflow");
-const dialogflow_fulfillment = require("dialogflow-fulfillment");
-const { WebhookClient } = require("dialogflow-fulfillment");
-const { Card } = dialogflow;
+const apiai = require('apiai');
 
 const app = express();
-// const apiaiApp = apiai(APIAI_TOKEN);
+const apiaiApp = apiai(APIAI_TOKEN);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -71,58 +66,44 @@ app.post('/webhook', (req, res) => {
 
 /* GET query from API.ai */
 
-// function sendMessage(event) {
-//   let sender = event.sender.id;
-//   let text = event.message.text;
-//   let attachment = event.message.attachments;
-// 	console.log('TCL: sendMessage -> attachment', attachment)
+function sendMessage(event) {
+  let sender = event.sender.id;
+  let text = event.message.text;
 
-//   //  let apiai = apiaiApp.textRequest(text, {
-//   //    sessionId: 'shopify_bot'
-//   //  });
+  let apiai = apiaiApp.textRequest(text, {
+    sessionId: 'shopify_bot'
+  });
 
-//   let apiai = apiaiApp.textRequest(text, {
-//     sessionId: 'shopify_bot'
-//   });
+  apiai.on('response', (response) => {
+    console.log(response)
+    let aiText = response.result.fulfillment.speech;
 
-//   apiai.on('response', (response) => {
-//     console.log(response)
-//     let aiText = response.result.fulfillment.messages;
-//     // let aiText = JSON.stringify(response.msg);
-//     console.log('TCL: sendMessage -> aiText', aiText)
-    
-//     // let { attachment } = aiText;
+    request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: { access_token: PAGE_ACCESS_TOKEN },
+      method: 'POST',
+      json: {
+        recipient: { id: sender },
+        message: { text: aiText }
+      }
+    }, (error, response) => {
+      if (error) {
+        console.log('Error sending message: ', error);
+      } else if (response.body.error) {
+        console.log('Error: ', response.body.error);
+      }
+    });
+  });
 
-//     request({
-//       url: 'https://graph.facebook.com/v2.6/me/messages',
-//       qs: { access_token: PAGE_ACCESS_TOKEN },
-//       method: 'POST',
-//       json: {
-//         'messaging_type': 'RESPONSE',
-//         recipient: { id: sender },
-//         message: { attachment: aiText }
-//       }
-//     }, (error, response) => {
-//       if (error) {
-//         console.log('Error sending message: ', error);
-//       } else if (response.body.error) {
-//         console.log('Error: ', response.body.error);
-//       }
-//     });
-//     console.log('TCL: sendMessage -> request', request);
-//   });
+  apiai.on('error', (error) => {
+    console.log(error);
+  });
 
-//   apiai.on('error', (error) => {
-//     console.log(error);
-//   });
-
-//   apiai.end();
-// }
+  apiai.end();
+}
 
 /* Webhook for API.ai to get response from the 3rd party API */
 app.post('/ai', (req, res) => {
-  const agent = new WebhookClient({ request: request, response: response });
-  console.log('TCL: agent', agent)
   /* Shopify API call for product */
   if (req.body.queryResult.action === 'productList') {
     console.log('*** product ***');
@@ -140,51 +121,41 @@ app.post('/ai', (req, res) => {
       if (!err && response.statusCode == 200) {
         let json = JSON.parse(body);
 
-        //  Get the name of all products
-        // let i, msg = "";
+        // Get the name of all products
+        let i, j, msg = "";
 
         // for (i in json.products) {
         //   msg += json.products[i].title + "\n";
         // }
 
-        let msg = {
-            "type": "template",
-            "payload": {
-              "template_type": "generic",
-              "elements": [
+        msg = [
+          {
+            "card": {
+              "title": "Flower",
+              "subtitle": "Red Flower",
+              "imageUri": "https://firebasestorage.googleapis.com/v0/b/agent-anonym.appspot.com/o/flower1.jpg?alt=media&token=b3342402-855f-416c-a486-72a631350e7f",
+              "buttons": [
                 {
-                  "title": "Welcome!",
-                  "image_url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
-                  "subtitle": "We have the right hat for everyone.",
-                  "default_action": {
-                    "type": "web_url",
-                    "url": "https://www.gdrc.psychol.cam.ac.uk/images/apple/image",
-                    "webview_height_ratio": "tall",
-                  },
-                  "buttons": [
-                    {
-                      "type": "web_url",
-                      "url": "https://petersfancybrownhats.com",
-                      "title": "View Website"
-                    }, {
-                      "type": "postback",
-                      "title": "Start Chatting",
-                      "payload": "DEVELOPER_DEFINED_PAYLOAD"
-                    }
-                  ]
+                  "text": "Visit Google",
+                  "postback": "www.google.com"
+                },
+                {
+                  "text": "Visit Dialogflow",
+                  "postback": "www.dialogflow.com"
                 }
               ]
+            },
+            "platform": "FACEBOOK"
           }
-      }
+        ]
+
         console.log(msg)
 
         return res.send(
           JSON.stringify({
-            fulfillmentText: "ABC",
-            fulfillmentMessages: [msg],
-            source: 'Facebook'
+            fulfillmentMessages: msg,
+            source: 'productList'
           })
-          // msg
         );
 
       } else {
@@ -199,9 +170,3 @@ app.post('/ai', (req, res) => {
     })
   }
 });
-
-// card
-// const agent = new WebhookClient({ request: request, response: response });
-// console.log('TCL: agent', agent)
-
-// agent.add(`Check this out`);
