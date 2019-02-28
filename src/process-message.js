@@ -10,7 +10,7 @@ const dialogflow = require('dialogflow');
 
 const responseFormat = require('./response-msgformat-fb');
 
-const projectId = process.env.PROJECT_ID;
+const projectId = "agent-anonym";
 const sessionId = '123456';
 const languageCode = 'en-US';
 const PAGE_ACCESS_TOKEN = 'EAAEWKehLl14BACyrHkqqsUoUoZBylHsmg5Pf9B0A4BgB021QkaojpENup2SwpWSfRNHfulmccqG3CcFpNyAudzhWUIk7rQeQ6x0kTYlpWrdZBLyymemja4ZAxujh4mOVp7SthzihYQSYutGjhwtwqViRvp14XJeruO3xAxubgZDZD';
@@ -19,8 +19,8 @@ const PAGE_ACCESS_TOKEN = 'EAAEWKehLl14BACyrHkqqsUoUoZBylHsmg5Pf9B0A4BgB021Qkaoj
 
 const config = {
   credentials: {
-    private_key: JSON.parse(process.env.PRIVATE_KEY),
-    client_email: JSON.parse(process.env.CLIENT_EMAIL),
+    private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC76qG/qYPUk71V\neVLKEGisuJsUbQrkJSNwXPUhdTIBnR0C6pKfolhoYPRioTmmVLRQGn7UChjdoBPp\nj5r5S+Nhx6RxHSbZou/YX2w3pAQ5l+Kzc+rCa2nn6zsritI8rfUXuzZJq+3CHueb\nJjy9uQFxv6bW9yRsMayHSGI3dOPzn/cfKkySlnuU350CGBhb+3Qmvzt+9hF5VHAy\nZElxYookKMeVVdZ+X038RC7jvMO7IGfvyN8NVaMBX4rW6nKUhoaj/ajfLabIGmBh\nlcxZbs/oCAXu+KrQqY0QdWtQlQERNo5CA/tHtwWT4WyyE5z/USbb6xfhhrAVNLf7\nrJwBFJA9AgMBAAECggEAAPOJ/sUP3UCUOHXvWzikUy2atr3RihOexn06oBBvw0W6\nh2kcUcF9L7BUhqMPUDwxqbv+C0yP8myQGWdhIYdw7Fl2ApklrtK8w/xbXRMRUD99\nBJ6iteqUiJNWRIdDhq/LpRGIBXJMWxmlyvUaay2f+NO1QbLm4aR1sh6sOwR7ahEZ\nP9gBEQznlEWaQFjfPvmSrx1RI+KeiDaE9QyS9DD4gMUJAZVH9qp1pVBSzPNslYxU\n9RgQA1Zl+ocX8nUP6f0wN8mL9rpEDLM6z4f/jYdUuCJJCo6qLw7nHiODzKnCu0kO\n0AsjgpbhPmtF7q8SEDhHd6kMhXHkr1gJQbtF3n5wJwKBgQDghIlh1UjUR5Zgbnoe\nKUIj/Qr8cLy5eEozgmpHTZ2MDeBST545quZLGgCMXooEBEhlAWRzh5XAFKalAA3Y\nRYUYAmDd0hDSKZWL3lr/eKChDXkU/XwIxKY0TSxEeYWa2y/Iz9kjw9PfOz+9IJ0J\nZa6N46n9OOZj1qIFw6z+6id5+wKBgQDWRDrzRwo5Xh73U36vy6eo6+YEsLznJBue\n93q5QC0VzjubRFqFrD4Nad9sou6PIAPtJvsrP54/cyPoHWjHDXLxps83U22uNGDx\nTszz6mK9bOk8rl5qnPmwgewBjuKO5nurZVWrmuthV+CzcaPs5Yb/6pmS9Io4/NEa\nMWrBxBUBJwKBgG6N9NQ+4Rjek1ayr+FQMahk/tblcJjneao5irnHp0+CubXuTJxa\n4gGTMTftiYqGzVsnP16AIiYuRQy0pRycxvfWm/o+aVgDcAcqm6Z2sKn9Z2UFmOD8\nbFcOtUCWkkp5qeL5LhQlZpviofUwLQOmlTh7JYZyUUhSNQAfpXz0sjGnAoGAQv/w\n4xOquceZrUL5kWUAV0z0jzDo0Oo0jN/cC0NrFa94ahPUronumWkqySClsjGTqLuQ\nvLRW+oY5iyJvGhc1gyTjFOzMljWgvrQiWH9JQuxkfmoT8giF91CZCN+yLncZ4r18\nLX3y7mx5QgNd+/zF2w5z2UUIV8uOYz9in5Z97u8CgYEAu3scRnzsKaXg0TYi6h8x\n7ypYyrZl+jlIaNKsGszjZtSg5iq+ZcXYkdtvpqX88aaOjjMFUP2nTm7sBCMdFS3s\nde/cNnNVsexMWPRhkGtCtHGz/lEcNV4VntXlszhBfsKyqIMNop4ncqnYd+zoMc/d\nBBpKAZZi63YzqAUGgNQpM0E=\n-----END PRIVATE KEY-----\n",
+    client_email: "dialogflow - oyywhs@agent-anonym.iam.gserviceaccount.com",
   },
 };
 

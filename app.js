@@ -22,9 +22,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', function (req, res) {
-  res.send('Hello world, I am a chat bot')
-})
+// app.get('/', function (req, res) {
+//   res.send('Hello world, I am a chat bot')
+// })
 
 // Facebook verification and messagepassing method call
 app.get('/webhook', verifyWebhook);
