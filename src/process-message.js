@@ -10,7 +10,7 @@ const dialogflow = require('dialogflow');
 
 const responseFormat = require('./response-msgformat-fb');
 
-const projectId = process.env.DIALOGFLOW_PROJECT_ID;
+const projectId = process.env.PROJECT_ID;
 const sessionId = '123456';
 const languageCode = 'en-US';
 const { PAGE_ACCESS_TOKEN } = process.env;
@@ -27,10 +27,10 @@ const config = {
 // console.log('TCL: config', config);
 
 const sessionClient = new dialogflow.SessionsClient(config);
-// console.log('TCL: sessionClient', sessionClient)
+console.log('TCL: sessionClient', sessionClient)
 
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
-// console.log('TCL: sessionPath', sessionPath)
+console.log('TCL: sessionPath', sessionPath)
 
 
 var userId = null;
