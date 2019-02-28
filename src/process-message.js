@@ -58,7 +58,8 @@ module.exports = (event) => {
 			console.log('TCL: responses', responses)
       const result = responses[0].queryResult;
       // debug(chalk.yellow(result.fulfillmentText));
-      msg = result.fulfillmentText;
+      // msg = result.fulfillmentText;
+      msg = "Hey";
       return exports.sendTextMessage(msg);
     })
     .catch((err) => {
