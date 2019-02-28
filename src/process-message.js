@@ -55,6 +55,7 @@ module.exports = (event) => {
   sessionClient
     .detectIntent(request)
     .then((responses) => {
+			console.log('TCL: responses', responses)
       const result = responses[0].queryResult;
       // debug(chalk.yellow(result.fulfillmentText));
       msg = result.fulfillmentText;

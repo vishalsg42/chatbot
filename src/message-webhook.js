@@ -5,7 +5,7 @@ module.exports = (req, res) => {
   if (req.body.object === 'page') {
     req.body.entry.forEach((entry) => {
       entry.messaging.forEach((event) => {
-        // debug(event);
+        console.log(event);
         if (event.message && event.message.text) {
           console.log("Message webhook Passed");
           processMessage(event);

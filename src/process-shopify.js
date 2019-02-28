@@ -14,8 +14,8 @@ module.exports = (datafetch) => {
     if (!err && response.statusCode == 200 && datafetch == 'productList') {
       let json = JSON.parse(body);
 
-      // debug('\n\n json------\n',json);
-      // debug('json------end',);
+      console.log('\n\n json------\n',json);
+      console.log('json------end');
 
       // Get the name of all products
       let i="";
