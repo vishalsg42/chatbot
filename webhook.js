@@ -76,9 +76,8 @@ function sendMessage(event) {
 
   apiai.on('response', (response) => {
     console.log(response)
-    let aiText = response.result.fulfillment.speech;
-    let msgdata=JSON.stringify(aiText);
-    console.log("MessageData: "+msgdata);
+    let aiText = response.result.fulfillment.speech;    
+    console.log("aiText Data===> "+aiText);
 
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -86,8 +85,7 @@ function sendMessage(event) {
       method: 'POST',
       json: {
         recipient: { id: sender },
-        // message: { text: aiText }        
-        "message": { msgdata }
+        message: { text: aiText }                
       }
     }, (error, response) => {
       if (error) {
