@@ -7,6 +7,7 @@ module.exports.verifyWebhook = (req, res) => {
 
   if (mode && token === VERIFY_TOKEN) {
     res.status(200).send(challenge);
+    console.log("Verification Passed");
   } else {
     res.sendStatus(403);
   }

@@ -9,6 +9,7 @@ const shop = "internal-example-store";
 let productApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/products.json';
 
 module.exports = (datafetch) => {
+	console.log('TCL: datafetch', datafetch)
   request.get(productApi, (err, response, body) => {
     if (!err && response.statusCode == 200 && datafetch == 'productList') {
       let json = JSON.parse(body);

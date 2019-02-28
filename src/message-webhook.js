@@ -7,6 +7,7 @@ module.exports = (req, res) => {
       entry.messaging.forEach((event) => {
         // debug(event);
         if (event.message && event.message.text) {
+          console.log("Message webhook Passed");
           processMessage(event);
         }
       });

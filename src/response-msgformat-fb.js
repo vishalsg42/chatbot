@@ -5,7 +5,7 @@ let elements =[];
 
 module.exports.responseFormat = (msg,datafetch) => {
   // debug(`message is ${msg} for this ${datafetch}`);
-  
+  console.log(`message is ${msg} for this ${datafetch}`);
   if(datafetch == 'productList'){ 
 
     let l='';
