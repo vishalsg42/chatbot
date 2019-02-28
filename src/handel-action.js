@@ -10,5 +10,7 @@ module.exports.handleAction = (req, res) => {
 		console.log('TCL: module.exports.handleAction -> datafetch', datafetch)
     datafetch = 'productlist'
     return processShopify(datafetch);
+  } else{
+		console.log("Error")
   }
 };

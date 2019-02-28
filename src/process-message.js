@@ -30,7 +30,7 @@ const sessionClient = new dialogflow.SessionsClient(config);
 // console.log('TCL: sessionClient', sessionClient)
 
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
-// console.log('TCL: sessionPath', sessionPath)
+console.log('TCL: sessionPath', sessionPath);
 
 
 var userId = null;
@@ -38,6 +38,7 @@ module.exports = (event) => {
   userId = event.sender.id;
   const message = event.message.text;
   let msg = '';
+	console.log('TCL: message', message)
 
   // debug(chalk.red(message));
 
