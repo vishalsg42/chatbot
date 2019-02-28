@@ -86,7 +86,15 @@ function sendMessage(event) {
       method: 'POST',
       json: {
         recipient: { id: sender },
-        message: { text: aiText }
+        message: { 
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              aiText
+            }
+          }
+         }
       }
     }, (error, response) => {
       if (error) {
@@ -131,11 +139,7 @@ app.post('/ai', (req, res) => {
         // }
 
         msg = [
-          {            
-            "attachment": {
-              "type": "template",
-              "payload": {
-                "template_type": "generic",
+          {                        
                 "elements": [
                   {
                     "title": "Welcome!",
@@ -159,9 +163,7 @@ app.post('/ai', (req, res) => {
                     ]
                   }
                 ]
-              }
-            }            
-          }
+              }                    
         ]
 
         console.log(msg);
