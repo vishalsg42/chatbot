@@ -20,14 +20,18 @@ const app = express();
 
 // Application Middlewares
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', function (req, res) {
+  res.send('Hello world, I am a chat bot')
+})
 
 // Facebook verification and messagepassing method call
-app.get('/ai', verifyWebhook);
-app.post('/ai', messageWebhook);
+app.get('/fbwebhook', verifyWebhook);
+app.post('/fbwebhook', messageWebhook);
 
 // Dialogflow webhook
-app.post('/webhook', handleAction);
+app.post('/dialogflow', handleAction);
 
 app.listen(process.env.PORT || 8000, () => {
   console.log(`App is running on port 8000`)
