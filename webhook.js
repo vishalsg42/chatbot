@@ -77,7 +77,8 @@ function sendMessage(event) {
   apiai.on('response', (response) => {
     console.log(response)
     let aiText = response.result.fulfillment.speech;
-    console.log("aiText Data===> " + aiText);
+    console.log("<===aiText Data===>");
+    console.log(aiText);
 
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
