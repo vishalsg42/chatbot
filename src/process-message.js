@@ -24,13 +24,13 @@ const config = {
   },
 };
 
-console.log('TCL: config', config);
+// console.log('TCL: config', config);
 
 const sessionClient = new dialogflow.SessionsClient(config);
-console.log('TCL: sessionClient', sessionClient)
+// console.log('TCL: sessionClient', sessionClient)
 
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
-console.log('TCL: sessionPath', sessionPath)
+// console.log('TCL: sessionPath', sessionPath)
 
 
 var userId = null;
