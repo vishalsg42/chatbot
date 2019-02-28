@@ -20,7 +20,7 @@ const { PAGE_ACCESS_TOKEN } = process.env;
 const config = {
   credentials: {
     private_key: JSON.parse(process.env.PRIVATE_KEY),
-    client_email: process.env.DIALOGFLOW_CLIENT_EMAIL,
+    client_email: JSON.parse(process.env.CLIENT_EMAIL),
   },
 };
 
