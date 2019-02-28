@@ -1,4 +1,4 @@
-const debug = require('debug')('Process Shopify');
+// const debug = require('debug')('Process Shopify');
 const responseFormat = require('./response-msgformat-fb');
 const request = require('request');
 
@@ -13,8 +13,8 @@ module.exports = (datafetch) => {
     if (!err && response.statusCode == 200 && datafetch == 'productlist') {
       let json = JSON.parse(body);
 
-      debug('\n\n json------\n',json);
-      debug('json------end',);
+      // debug('\n\n json------\n',json);
+      // debug('json------end',);
 
       // Get the name of all products
       let i="";

@@ -5,8 +5,8 @@ const fetch = require('node-fetch');
 const dialogflow = require('dialogflow');
 
 // Debug tools
-const debug = require('debug')('Process-Message');
-const chalk = require('chalk');
+// const debug = require('debug')('Process-Message');
+// const chalk = require('chalk');
 
 const responseFormat = require('./response-msgformat-fb');
 
@@ -15,7 +15,7 @@ const sessionId = '123456';
 const languageCode = 'en-US';
 const { PAGE_ACCESS_TOKEN } = process.env;
 
-debug(PAGE_ACCESS_TOKEN);
+// debug(PAGE_ACCESS_TOKEN);
 
 const config = {
   credentials: {
@@ -35,7 +35,7 @@ module.exports = (event) => {
   const message = event.message.text;
   let msg = '';
 
-  debug(chalk.red(message));
+  // debug(chalk.red(message));
 
   const request = {
     session: sessionPath,
@@ -51,12 +51,13 @@ module.exports = (event) => {
     .detectIntent(request)
     .then((responses) => {
       const result = responses[0].queryResult;
-      debug(chalk.yellow(result.fulfillmentText));
+      // debug(chalk.yellow(result.fulfillmentText));
       msg = result.fulfillmentText;
       return exports.sendTextMessage(msg);
     })
     .catch((err) => {
-      debug(`Error: ${chalk.red(err)}`);
+      console.log(err);
+      // debug(`Error: ${chalk.red(err)}`);
     });
 
 };

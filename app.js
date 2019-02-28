@@ -3,8 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 // Debug tools
-const debug = require('debug')('App');
-const chalk = require('chalk');
+// const debug = require('debug')('App');
+// const chalk = require('chalk');
 
 // Activating .env
 require('dotenv').config();
@@ -30,5 +30,6 @@ app.post('/fbwebhook', messageWebhook);
 app.post('/dialogflow', handleAction);
 
 app.listen(8000, () => {
-  debug(`App is running on ${chalk.green(8000)}`);
+  console.log(`App is running on port 8000`)
+  // debug(`App is running on ${chalk.green(8000)}`);
 });

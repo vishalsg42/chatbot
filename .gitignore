@@ -59,7 +59,7 @@ typings/
 .env
 
 data.json
-
+.eslintrc.js
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

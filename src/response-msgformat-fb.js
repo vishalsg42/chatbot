@@ -1,10 +1,10 @@
 const sendMessage = require('./process-message');
-const debug = require('debug')('Response message format for FBmessenger');
+// const debug = require('debug')('Response message format for FBmessenger');
 
 let elements =[];
 
 module.exports.responseFormat = (msg,datafetch) => {
-  debug(`message is ${msg} for this ${datafetch}`);
+  // debug(`message is ${msg} for this ${datafetch}`);
   
   if(datafetch == 'productlist'){ 
 
