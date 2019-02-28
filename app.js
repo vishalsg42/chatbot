@@ -20,7 +20,7 @@ const app = express();
 
 // Application Middlewares
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Facebook verification and messagepassing method call
 app.get('/ai', verifyWebhook);
