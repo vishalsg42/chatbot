@@ -23,11 +23,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Facebook verification and messagepassing method call
-app.get('/fbwebhook', verifyWebhook);
-app.post('/fbwebhook', messageWebhook);
+app.get('/webhook', verifyWebhook);
+app.post('/webhook', messageWebhook);
 
 // Dialogflow webhook
-app.post('/dialogflow', handleAction);
+app.post('/ai', handleAction);
 
 app.listen(process.env.PORT || 8000, () => {
   console.log(`App is running on port 8000`)
