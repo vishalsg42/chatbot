@@ -6,9 +6,10 @@ let datafetch = '';
 
 module.exports.handleAction = (req, res) => {
   console.log(`\n\n>>>>>>> Webhook Called <<<<<<<`);
-  if (req.body.queryResult.action === 'RandomSearch') {
+  console.log(req.body, "********************88888888");
+  if (req.body.queryResult.action === 'productList') {
 		console.log('TCL: module.exports.handleAction -> datafetch', datafetch)
-    datafetch = 'productlist'
+    datafetch = 'productList'
     return processShopify(datafetch);
   } else{
 		console.log("Error")
