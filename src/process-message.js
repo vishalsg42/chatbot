@@ -13,7 +13,7 @@ const responseFormat = require('./response-msgformat-fb');
 const projectId = "agent-anonym";
 const sessionId = '123456';
 const languageCode = 'en-US';
-const PAGE_ACCESS_TOKEN = 'EAAQ4elkZCrUgBAIevyevTtO30008JH2ZBQVjRceaIKZCF6rmrW7gjCiDL9ESDHE0ycPIsCjLqITVuldXhZCSyKBSjioXq1yrKJxwZBA4x26aQv1iFM9fESTnoiTECdgkctqz8uHaXMwBRQSExrFQnBfG0h6FJTZCStZC3eZA038KxG16H4FrxQDu';
+const PAGE_ACCESS_TOKEN = 'EAAQ4elkZCrUgBAP81VlTSOCEUWuQ8uuWGewIop3fa7BZATLjMnRsAw97Pfd8gJwXhku3NldPjMZAeYPaPcxWX1HYJJaRmnV9Xk6LIZAyVuKKSJp2INMACBRPf9zNM8tDdZBYsQsTGgSilooAQRoUsOEm1xqrnxgLZCkDMCrYajzUjhMa3ZAFlD3';
 
 // debug(PAGE_ACCESS_TOKEN);
 
@@ -30,8 +30,6 @@ const sessionClient = new dialogflow.SessionsClient(config);
 // console.log('TCL: sessionClient', sessionClient)
 
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
-console.log('TCL: sessionPath', sessionPath);
-
 
 var userId = null;
 module.exports = (event) => {
@@ -55,9 +53,8 @@ module.exports = (event) => {
   sessionClient
     .detectIntent(request)
     .then((responses) => {
-			console.log('TCL: responses', responses)
+			// console.log('TCL: responses', responses)
       const result = responses[0].queryResult;
-      console.log(result.fulfillmentText);
       msg = result.fulfillmentText;
       return exports.sendTextMessage(msg);
     })
@@ -69,7 +66,7 @@ module.exports = (event) => {
 };
 
 exports.sendTextMessage = (text) => {
-  console.log(text + '***************');
+	console.log('TCL: exports.sendTextMessage -> text', text)
   fetch(
     `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`, {
       headers: {
