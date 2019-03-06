@@ -8,91 +8,108 @@ const shop = "internal-example-store";
 
 let productApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/products.json';
 
+let collectionApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/collections.json';
+
 module.exports = (datafetch) => {
-	console.log('TCL: datafetch', datafetch)
   request.get(productApi, (err, response, body) => {
-    if (!err && response.statusCode == 200 && datafetch == 'productList') {
-      let json = JSON.parse(body);
+    if(!err && response.statusCode == 200 && datafetch) {
+      let json;
+      let i;
+      let msg;
+      let elements;
+      switch(datafetch) {
+        case "productList" :
+          json = JSON.parse(body);
 
-      console.log('\n\n json------\n',json);
-      console.log('json------end');
+          // Get the name of all products
+          i = "";
+          msg = [];
+          elements = {
+            title: '',
+            subtitle: '',
+            img: '',
+            productURL: ''
+          };
 
-      // Get the name of all products
-      let i="";
-      let msg =[];
-      let elements = {
-        title: '',
-        subtitle: '',
-        img:'',
-        productURL:''
-      };
+          for (i in json.products) {
+            elements.title = json.products[i].title;
+            elements.subtitle = "Price : " + json.products[i].variants[0].price;
+            elements.img = json.products[i].image.src;
+            elements.productURL = json.products[i].handle;
 
-      for (i in json.products) {
-        elements.title = json.products[i].title;
-        elements.subtitle = "Price : "+json.products[i].variants[0].price;
-        elements.img = json.products[i].image.src;
-        elements.productURL = json.products[i].handle;
+            msg.push(elements);
 
-        msg.push(elements);
+            elements = {
+              title: '',
+              subtitle: '',
+              img: '',
+              productURL: ''
+            };
+          }
+          responseFormat.responseFormat(msg, datafetch);
+          break;
 
-        elements = {
-          title: '',
-          subtitle: '',
-          img:'',
-          productURL: ''
-        };
+        case "productListCard" :
+          json = JSON.parse(body);
+
+          // Get the name of all products
+          i = "";
+          msg = [];
+          elements = {
+            title: '',
+            subtitle: '',
+            img: '',
+            productURL: ''
+          };
+
+          for (i in json.products) {
+            elements.title = json.products[i].title;
+            elements.subtitle = "Price : " + json.products[i].variants[0].price;
+            elements.img = json.products[i].image.src;
+            elements.productURL = json.products[i].handle;
+
+            msg.push(elements);
+
+            elements = {
+              title: '',
+              subtitle: '',
+              img: '',
+              productURL: ''
+            };
+          }
+          responseFormat.responseFormat(msg, datafetch);
+          break;
+
+        case "productImages" :
+          msg = "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/881e6651881085.58fd911b65d88.png";
+          responseFormat.responseFormat(msg, datafetch);
+          break;
+
+        case "productVideos" :
+          msg = "https://www.youtube.com/watch?v=E4n7BQkOQ_s";
+          responseFormat.responseFormat(msg, datafetch);
+          break;
+
+        case "Headphones" :
+          
+          break;
+
+        case "Mobiles" :
+        
+          break;
+
+        case "" :
+
+          break;
+
+        case "Shoes" :
+
+          break;
+
+        default:
+          err;
       }
-      return responseFormat.responseFormat(msg,datafetch);
-    } else if (!err && response.statusCode == 200 && datafetch == 'productListCard') {
-      let json = JSON.parse(body);
 
-      // console.log('\n\n json------\n', json);
-      // console.log('json------end');
-
-      // Get the name of all products
-      let i = "";
-      let msg = [];
-      let elements = {
-        title: '',
-        subtitle: '',
-        img: '',
-        productURL: ''
-      };
-
-      for (i in json.products) {
-        elements.title = json.products[i].title;
-        elements.subtitle = "Price : " + json.products[i].variants[0].price;
-        elements.img = json.products[i].image.src;
-        elements.productURL = json.products[i].handle;
-
-        msg.push(elements);
-
-        elements = {
-          title: '',
-          subtitle: '',
-          img: '',
-          productURL: ''
-        };
-      }
-      return responseFormat.responseFormat(msg, datafetch);
-    } else if (!err && response.statusCode == 200 && datafetch == 'productImages') {
-    
-      let msg = "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/881e6651881085.58fd911b65d88.png";
-
-      return responseFormat.responseFormat(msg, datafetch);
-    } else if (!err && response.statusCode == 200 && datafetch == 'productVideos') {
-
-      let msg = "https://www.youtube.com/watch?v=E4n7BQkOQ_s";
-
-      return responseFormat.responseFormat(msg, datafetch);
-    } else {
-      let errorMessage = 'I failed to look up the product name list.';
-      return res.status(400).json({
-        status: {
-          code: 400,
-          errorType: errorMessage
-        }
-      });
     }
   })
 }

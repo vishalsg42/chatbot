@@ -4,18 +4,10 @@ const fetch = require('node-fetch');
 // Dialogflow API
 const dialogflow = require('dialogflow');
 
-// Debug tools
-// const debug = require('debug')('Process-Message');
-// const chalk = require('chalk');
-
-const responseFormat = require('./response-msgformat-fb');
-
 const projectId = "agent-anonym";
 const sessionId = '123456';
 const languageCode = 'en-US';
-const PAGE_ACCESS_TOKEN = 'EAAQ4elkZCrUgBAP81VlTSOCEUWuQ8uuWGewIop3fa7BZATLjMnRsAw97Pfd8gJwXhku3NldPjMZAeYPaPcxWX1HYJJaRmnV9Xk6LIZAyVuKKSJp2INMACBRPf9zNM8tDdZBYsQsTGgSilooAQRoUsOEm1xqrnxgLZCkDMCrYajzUjhMa3ZAFlD3';
-
-// debug(PAGE_ACCESS_TOKEN);
+const PAGE_ACCESS_TOKEN = 'EAAQ4elkZCrUgBAPfRdkLyhMBTJhZA4EtE9O2otEtOHfHNbVBKoMZAY2OAKPzGRZANGyWwlNZAku1eRzRZBue5XqfPrCoFpTIrrtUGlw5rAwdHfHeGeAOBDiO1ncluCyxccBZBcRclaSxZCMYgkKO9YK0PZAYOZC2S6glCRcZANT13lEAYQ5sS8l063N';
 
 const config = {
   credentials: {
@@ -24,10 +16,7 @@ const config = {
   },
 };
 
-// console.log('TCL: config', config);
-
 const sessionClient = new dialogflow.SessionsClient(config);
-// console.log('TCL: sessionClient', sessionClient)
 
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
@@ -35,10 +24,7 @@ var userId = null;
 module.exports = (event) => {
   userId = event.sender.id;
   const message = event.message.text;
-  let msg = '';
-	console.log('TCL: message', message)
-
-  // debug(chalk.red(message));
+  let msg1 = '';
 
   const request = {
     session: sessionPath,
@@ -53,20 +39,18 @@ module.exports = (event) => {
   sessionClient
     .detectIntent(request)
     .then((responses) => {
-			// console.log('TCL: responses', responses)
       const result = responses[0].queryResult;
-      msg = result.fulfillmentText;
-      return exports.sendTextMessage(msg);
+      let msg = result.fulfillmentText;
+      msg1 = {"text":msg};
+      return module.exports.sendTextMessage(msg1);
     })
     .catch((err) => {
       console.log(err);
-      // debug(`Error: ${chalk.red(err)}`);
     });
 
 };
 
-exports.sendTextMessage = (text) => {
-	console.log('TCL: exports.sendTextMessage -> text', text)
+module.exports.sendTextMessage = (text) => {
   fetch(
     `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`, {
       headers: {

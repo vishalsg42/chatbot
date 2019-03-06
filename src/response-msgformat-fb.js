@@ -5,6 +5,7 @@ const sendMessage = require('./process-message');
 module.exports.responseFormat = (msg,datafetch) => {
   let elements =[];
   // debug(`message is ${msg} for this ${datafetch}`);
+
   if (datafetch == 'productList'){ 
 
     let l='';
@@ -19,6 +20,7 @@ module.exports.responseFormat = (msg,datafetch) => {
         "default_action": {
           "type": "web_url",
           "url": "",
+          "messenger_extensions": true,
           "webview_height_ratio": "tall",
         },
         "buttons":[
@@ -57,24 +59,28 @@ module.exports.responseFormat = (msg,datafetch) => {
     let l = '';
     l = msg.length;
 
-    for (let i = 0; i < l; i++) {
+    for (let i = 0; i < 4; i++) {
 
       let items = {
         "title": "",
         "subtitle": "",
         "image_url": "",
+        "buttons": [
+          {
+            "title": "View",
+            "type": "web_url",
+            "url": "",
+            "messenger_extensions": true,
+            "webview_height_ratio": "COMPACT",
+            "fallback_url": "https://internal-example-store.myshopify.com/"
+          }
+        ],
         "default_action": {
           "type": "web_url",
           "url": "",
-          "webview_height_ratio": "tall",
+          "messenger_extensions": true,
+          "webview_height_ratio": "COMPACT"
         },
-        "buttons": [
-          {
-            "type": "web_url",
-            "url": '',
-            "title": "View product"
-          }
-        ]
       }
 
       items.title = msg[i].title;
@@ -90,8 +96,16 @@ module.exports.responseFormat = (msg,datafetch) => {
       "attachment": {
         "type": "template",
         "payload": {
-          "template_type": "generic",
+          "template_type": "list",
+          "top_element_style": "compact",
           "elements": elements,
+          "buttons": [
+            {
+              "title": "View More",
+              "type": "postback",
+              "payload": "card"
+            }
+          ]
         }
       }
     };
