@@ -29,7 +29,7 @@ module.exports.handleAction = (req, res) => {
   //   case 'productList':
   // }
   if(req.body.queryResult.action) {
-    datafetch = req.body.queryResult.action;
+    datafetch = req.body.queryResult.action;    
     return processShopify(datafetch);
   }
 };

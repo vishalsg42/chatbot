@@ -1,66 +1,54 @@
 const sendMessage = require('./process-message');
-// const debug = require('debug')('Response message format for FBmessenger');
 
 
 module.exports.responseFormat = (msg,datafetch) => {
   let elements =[];
   // debug(`message is ${msg} for this ${datafetch}`);
-
-  if (datafetch == 'productList'){ 
-
-    let l='';
-    l= msg.length;
-
-    for (let i = 0; i<l; i++ ) {
-
-      let items =  {
-        "title":"",
-        "subtitle":"",
-        "image_url":"",
+  let l = '';
+  function productscarousel() {
+    l = msg.length;
+    for (let i = 0; i < l; i++) {
+      let items = {
+        "title": "",
+        "subtitle": "",
+        "image_url": "",
         "default_action": {
           "type": "web_url",
           "url": "",
           "messenger_extensions": true,
           "webview_height_ratio": "tall",
         },
-        "buttons":[
+        "buttons": [
           {
-            "type":"web_url",
-            "url":'',
-            "title":"View product"
-          }          
-        ]      
+            "type": "web_url",
+            "url": '',
+            "title": "View product"
+          }
+        ]
       }
-
       items.title = msg[i].title;
       items.subtitle = msg[i].subtitle;
       items.image_url = msg[i].img;
-      items.default_action.url = "https://internal-example-store.myshopify.com/products/" + msg[i].productURL;
-      items.buttons[0].url = 'https://internal-example-store.myshopify.com/products/' + msg[i].productURL;
+      items.default_action.url = "https://ashwinip.myshopify.com/products/" + msg[i].productURL;
+      items.buttons[0].url = 'https://ashwinip.myshopify.com/products/' + msg[i].productURL;
 
       elements.push(items);
     }
-
-    const message = { 
-      "attachment":{
-        "type":"template",
-        "payload":{
-          "template_type":"generic",
+    const message = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
           "elements": elements,
         }
       }
     };
-    
-    // debug("message pass is" , message)
     return sendMessage.sendTextMessage(message);
   }
-  if (datafetch == 'productListCard') {
 
-    let l = '';
+  function productscard() {
     l = msg.length;
-
     for (let i = 0; i < 4; i++) {
-
       let items = {
         "title": "",
         "subtitle": "",
@@ -72,7 +60,7 @@ module.exports.responseFormat = (msg,datafetch) => {
             "url": "",
             "messenger_extensions": true,
             "webview_height_ratio": "COMPACT",
-            "fallback_url": "https://internal-example-store.myshopify.com/"
+            "fallback_url": "https://ashwinip.myshopify.com/"
           }
         ],
         "default_action": {
@@ -82,16 +70,14 @@ module.exports.responseFormat = (msg,datafetch) => {
           "webview_height_ratio": "COMPACT"
         },
       }
-
       items.title = msg[i].title;
       items.subtitle = msg[i].subtitle;
       items.image_url = msg[i].img;
-      items.default_action.url = "https://internal-example-store.myshopify.com/products/" + msg[i].productURL;
-      items.buttons[0].url = 'https://internal-example-store.myshopify.com/products/' + msg[i].productURL;
+      items.default_action.url = "https://ashwinip.myshopify.com/products/" + msg[i].productURL;
+      items.buttons[0].url = 'https://ashwinip.myshopify.com/products/' + msg[i].productURL;
 
       elements.push(items);
     }
-
     const message = {
       "attachment": {
         "type": "template",
@@ -109,14 +95,11 @@ module.exports.responseFormat = (msg,datafetch) => {
         }
       }
     };
-
-    // debug("message pass is" , message)
     return sendMessage.sendTextMessage(message);
   }
-  if (datafetch == 'productImages') {
 
+  function displayImage() {
     imageurl = msg;
-    
     const message = {
       "attachment": {
         "type": "image",
@@ -125,15 +108,12 @@ module.exports.responseFormat = (msg,datafetch) => {
         }
       }
     };
-
-    // debug("message pass is" , message)
     return sendMessage.sendTextMessage(message);
   }
-  if (datafetch == 'productVideos') {
 
+  function displayVideo() {
     elements = msg;
-		console.log('TCL: module.exports.responseFormat -> elements', elements)
-
+    console.log('TCL: module.exports.responseFormat -> elements', elements)
     const message = {
       "attachment": {
         "type": "template",
@@ -147,8 +127,28 @@ module.exports.responseFormat = (msg,datafetch) => {
         }
       }
     };
-
-    // debug("message pass is" , message)
     return sendMessage.sendTextMessage(message);
+  }
+
+  if (datafetch == 'productList'){         
+    productscarousel();        
+  }
+  if (datafetch == 'productListCard') {
+    productscard();    
+  }
+  if (datafetch == 'productImages') {
+    displayImage();    
+  }
+  if (datafetch == 'productVideos') {
+    displayVideo();    
+  }  
+  if (datafetch == 'Headphones') {
+    productscarousel();
+  }
+  if (datafetch == 'Sunglass') {
+    productscarousel();
+  }
+  if (datafetch == 'Tablets') {
+    productscarousel();
   }
 }

@@ -7,7 +7,7 @@ const dialogflow = require('dialogflow');
 const projectId = "agent-anonym";
 const sessionId = '123456';
 const languageCode = 'en-US';
-const PAGE_ACCESS_TOKEN = 'EAAQ4elkZCrUgBAPfRdkLyhMBTJhZA4EtE9O2otEtOHfHNbVBKoMZAY2OAKPzGRZANGyWwlNZAku1eRzRZBue5XqfPrCoFpTIrrtUGlw5rAwdHfHeGeAOBDiO1ncluCyxccBZBcRclaSxZCMYgkKO9YK0PZAYOZC2S6glCRcZANT13lEAYQ5sS8l063N';
+const PAGE_ACCESS_TOKEN = 'EAAQ4elkZCrUgBAEJnCs1MZBZCRarM2NJz14ERWmGTc4skhpZC9rlbSZAnpxI6DIRBCOCuTOiT8wB1bp4ZC6aRqwTdZAIZAeZBq7HCvoNInmfYeTUNqmNKKRCyF4DlRdHZBCqpQkZBXjaeQKvOy0JAK5e9nMQhh5tVvlRwHANyFA5ifkHgZDZD';
 
 const config = {
   credentials: {
@@ -21,7 +21,7 @@ const sessionClient = new dialogflow.SessionsClient(config);
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 var userId = null;
-module.exports = (event) => {
+module.exports = (event) => {  
   userId = event.sender.id;
   const message = event.message.text;
   let msg1 = '';
@@ -41,7 +41,7 @@ module.exports = (event) => {
     .then((responses) => {
       const result = responses[0].queryResult;
       let msg = result.fulfillmentText;
-      msg1 = {"text":msg};
+      msg1 = {"text":msg};      
       return module.exports.sendTextMessage(msg1);
     })
     .catch((err) => {
@@ -50,7 +50,8 @@ module.exports = (event) => {
 
 };
 
-module.exports.sendTextMessage = (text) => {
+
+module.exports.sendTextMessage = (text) => {  
   fetch(
     `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`, {
       headers: {

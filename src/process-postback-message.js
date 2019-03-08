@@ -30,7 +30,7 @@ var userId = null;
 
 const username = '8e68b0ada51356f5fe79a3bb660133de';
 const password = 'ca1e7b2a49df493443c15f5b5201ee50';
-const shop = "internal-example-store";
+const shop = "ashwinip";
 
 let productApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/products.json';
 
@@ -81,8 +81,7 @@ module.exports = (event) => {
         let text = {
           "text": "What Product Do You Want To Shop For ?",
           "quick_replies": contentMsg
-        }
-        console.log('TCL: text', text)
+        }        
         sendMessage(text);
       }
   });
