@@ -10,6 +10,7 @@ module.exports = (req, res) => {
           processMessage(event);
         }
         if (event.postback && event.postback.payload) {
+          console.log(event.postback.payload)
           processPostbackMessage(event);
         }
       });

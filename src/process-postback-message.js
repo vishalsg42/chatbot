@@ -28,8 +28,8 @@ const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 var userId = null;
 
-const username = '8e68b0ada51356f5fe79a3bb660133de';
-const password = 'ca1e7b2a49df493443c15f5b5201ee50';
+const username = 'd6e350e7d9cdddb8ddd0c58ea01aa75f';
+const password = '47cfe7a106c1a29c143b880b8cde541e';
 const shop = "ashwinip";
 
 let productApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/products.json';
