@@ -29,8 +29,8 @@ module.exports.responseFormat = (msg,datafetch) => {
       items.title = msg[i].title;
       items.subtitle = msg[i].subtitle;
       items.image_url = msg[i].img;
-      items.default_action.url = "https://ashwinip.myshopify.com/products/" + msg[i].productURL;
-      items.buttons[0].url = 'https://ashwinip.myshopify.com/products/' + msg[i].productURL;
+      items.default_action.url = "https://barista-shop1.myshopify.com/products/" + msg[i].productURL;
+      items.buttons[0].url = 'https://barista-shop1.myshopify.com/products/' + msg[i].productURL;
 
       elements.push(items);
     }
@@ -60,7 +60,7 @@ module.exports.responseFormat = (msg,datafetch) => {
             "url": "",
             "messenger_extensions": true,
             "webview_height_ratio": "COMPACT",
-            "fallback_url": "https://ashwinip.myshopify.com/"
+            "fallback_url": "https://barista-shop1.myshopify.com/"
           }
         ],
         "default_action": {
@@ -73,8 +73,8 @@ module.exports.responseFormat = (msg,datafetch) => {
       items.title = msg[i].title;
       items.subtitle = msg[i].subtitle;
       items.image_url = msg[i].img;
-      items.default_action.url = "https://ashwinip.myshopify.com/products/" + msg[i].productURL;
-      items.buttons[0].url = 'https://ashwinip.myshopify.com/products/' + msg[i].productURL;
+      items.default_action.url = "https://barista-shop1.myshopify.com/products/" + msg[i].productURL;
+      items.buttons[0].url = 'https://barista-shop1.myshopify.com/products/' + msg[i].productURL;
 
       elements.push(items);
     }

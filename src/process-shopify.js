@@ -2,15 +2,15 @@
 const responseFormat = require('./response-msgformat-fb');
 const request = require('request');
 
-const username = 'd6e350e7d9cdddb8ddd0c58ea01aa75f';
-const password = '47cfe7a106c1a29c143b880b8cde541e';
-const shop = "ashwinip";
+const username = '43a8a24f406c63e004835ce1565fd01b';
+const password = 'a895e46425a7067388c8f9c4e00e48d6';
+const shop = "barista-shop1";
 
 let productApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/products.json';
 
-let headphonesApi = 'https://' + username + ':' + password + '@' + shop +'.myshopify.com/admin/collects.json?collection_id=97405108312';
-let sunglassApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=97405042776';
-let tabletsApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=97405141080';
+let headphonesApi = 'https://' + username + ':' + password + '@' + shop +'.myshopify.com/admin/collects.json?collection_id=84818362439';
+let sunglassApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84818395207';
+let tabletsApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84818460743';
 
 let headphoneslist=[];
 let sunglasslist=[];
