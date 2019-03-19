@@ -11,10 +11,20 @@ let productApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin
 let headphonesApi = 'https://' + username + ':' + password + '@' + shop +'.myshopify.com/admin/collects.json?collection_id=84818362439';
 let sunglassApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84818395207';
 let tabletsApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84818460743';
+let booksApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84948844615';
+let mobilesApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84948975687';
+let shoesApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84948942919';
+let bagsApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84949041223';
+let laptopApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84948877383';
 
 let headphoneslist=[];
 let sunglasslist=[];
 let tabletslist = [];
+let bookslist = [];
+let mobileslist = [];
+let shoeslist = [];
+let bagslist = [];
+let laptoplist = [];
 
 request.get(headphonesApi, (err, response, body) => {
   if (!err && response.statusCode == 200 ) {
@@ -39,6 +49,51 @@ request.get(tabletsApi, (err, response, body) => {
     json = JSON.parse(body);
     for (i in json.collects) {
       tabletslist[i] = json.collects[i].product_id;
+    }
+  }
+});
+
+request.get(booksApi, (err, response, body) => {
+  if (!err && response.statusCode == 200) {
+    json = JSON.parse(body);
+    for (i in json.collects) {
+      bookslist[i] = json.collects[i].product_id;
+    }
+  }
+});
+
+request.get(mobilesApi, (err, response, body) => {
+  if (!err && response.statusCode == 200) {
+    json = JSON.parse(body);
+    for (i in json.collects) {
+      mobileslist[i] = json.collects[i].product_id;
+    }
+  }
+});
+
+request.get(shoesApi, (err, response, body) => {
+  if (!err && response.statusCode == 200) {
+    json = JSON.parse(body);
+    for (i in json.collects) {
+      shoeslist[i] = json.collects[i].product_id;
+    }
+  }
+});
+
+request.get(bagsApi, (err, response, body) => {
+  if (!err && response.statusCode == 200) {
+    json = JSON.parse(body);
+    for (i in json.collects) {
+      bagslist[i] = json.collects[i].product_id;
+    }
+  }
+});
+
+request.get(laptopApi, (err, response, body) => {
+  if (!err && response.statusCode == 200) {
+    json = JSON.parse(body);
+    for (i in json.collects) {
+      laptoplist[i] = json.collects[i].product_id;
     }
   }
 });
@@ -175,7 +230,32 @@ module.exports = (datafetch) => {
         case "Tablets":
           CollectionDisplay(tabletslist);
           responseFormat.responseFormat(msg, datafetch);
-          break;  
+          break;
+          
+        case "Books":
+        CollectionDisplay(bookslist);
+        responseFormat.responseFormat(msg, datafetch);
+        break;
+
+        case "Mobiles":
+        CollectionDisplay(mobileslist);
+        responseFormat.responseFormat(msg, datafetch);
+        break;
+
+        case "Shoes":
+        CollectionDisplay(shoeslist);
+        responseFormat.responseFormat(msg, datafetch);
+        break;
+
+        case "Bags":
+        CollectionDisplay(bagslist);
+        responseFormat.responseFormat(msg, datafetch);
+        break;
+
+        case "Laptop":
+        CollectionDisplay(laptoplist);
+        responseFormat.responseFormat(msg, datafetch);
+        break;
 
         default:
           err;

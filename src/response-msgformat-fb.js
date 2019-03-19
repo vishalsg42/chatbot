@@ -130,7 +130,7 @@ module.exports.responseFormat = (msg,datafetch) => {
     return sendMessage.sendTextMessage(message);
   }
 
-  if (datafetch == 'productList'){         
+  if (datafetch == 'productList') {         
     productscarousel();        
   }
   if (datafetch == 'productListCard') {
@@ -149,6 +149,21 @@ module.exports.responseFormat = (msg,datafetch) => {
     productscarousel();
   }
   if (datafetch == 'Tablets') {
+    productscarousel();
+  }
+  if (datafetch == 'Books') {
+    productscarousel();
+  }
+  if (datafetch == 'Mobiles') {
+    productscarousel();
+  }
+  if (datafetch == 'Shoes') {
+    productscarousel();
+  }
+  if (datafetch == 'Bags') {
+    productscarousel();
+  }
+  if (datafetch == 'Laptop') {
     productscarousel();
   }
 }
