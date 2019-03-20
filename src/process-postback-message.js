@@ -32,43 +32,43 @@ const username = '43a8a24f406c63e004835ce1565fd01b';
 const password = 'a895e46425a7067388c8f9c4e00e48d6';
 const shop = "barista-shop1";
 
-let productApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/products.json';
+let productApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/products.json';
 
-let collectionApi = 'https://'+username+':'+password+'@'+shop+'.myshopify.com/admin/custom_collections.json';
+let collectionApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/custom_collections.json';
 
 module.exports = (event) => {
   userId = event.sender.id;
   let payload = event.postback.payload;
-  
+
   if (payload === "get started") {
-    request.get(collectionApi,(err,response,body) => {
+    request.get(collectionApi, (err, response, body) => {
       if (!err && response.statusCode == 200) {
         let headings = [];
-				
+
         let json = JSON.parse(body);
-        
+
         let i = "";
 
         let elements = {
           title: "",
           handle: ""
         }
-        
-        for(i in json.custom_collections) {
+
+        for (i in json.custom_collections) {
           elements.title = json.custom_collections[i].title;
           elements.handle = json.custom_collections[i].handle;
 
           headings.push(elements);
           elements = {
-              title: "",
-              handle: ""
+            title: "",
+            handle: ""
           }
         }
 
         let contentMsg = []
         let content = {}
-        
-        for(i in headings){
+
+        for (i in headings) {
           content = {
             "content_type": "text",
             "title": headings[i].title,
@@ -77,18 +77,18 @@ module.exports = (event) => {
           contentMsg.push(content);
           content = {};
         }
-        
+
         let text = {
           "text": "What Product Do You Want To Shop For ?",
           "quick_replies": contentMsg
-        }        
+        }
         sendMessage(text);
       }
-  });
-}
+    });
+  }
 
   if (payload === "all-products") {
-    request.get(productApi,(err,response,body) => {
+    request.get(productApi, (err, response, body) => {
       if (!err && response.statusCode == 200) {
         let json = JSON.parse(body);
 
@@ -129,8 +129,8 @@ module.exports = (event) => {
       }
     })
   }
- 
-function sendMessage(text) {
+
+  function sendMessage(text) {
     fetch(
       `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`, {
         headers: {
@@ -143,7 +143,7 @@ function sendMessage(text) {
             id: userId,
           },
           message: text,
-        }), 
+        }),
       }
     )
   }

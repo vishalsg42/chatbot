@@ -21,7 +21,7 @@ const sessionClient = new dialogflow.SessionsClient(config);
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 var userId = null;
-module.exports = (event) => {  
+module.exports = (event) => {
   userId = event.sender.id;
   const message = event.message.text;
   let msg1 = '';
@@ -41,7 +41,7 @@ module.exports = (event) => {
     .then((responses) => {
       const result = responses[0].queryResult;
       let msg = result.fulfillmentText;
-      msg1 = {"text":msg};      
+      msg1 = { "text": msg };
       return module.exports.sendTextMessage(msg1);
     })
     .catch((err) => {
@@ -51,7 +51,7 @@ module.exports = (event) => {
 };
 
 
-module.exports.sendTextMessage = (text) => {  
+module.exports.sendTextMessage = (text) => {
   fetch(
     `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`, {
       headers: {

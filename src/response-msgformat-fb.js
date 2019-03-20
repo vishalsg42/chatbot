@@ -1,8 +1,8 @@
 const sendMessage = require('./process-message');
 
 
-module.exports.responseFormat = (msg,datafetch) => {
-  let elements =[];
+module.exports.responseFormat = (msg, datafetch) => {
+  let elements = [];
   // debug(`message is ${msg} for this ${datafetch}`);
   let l = '';
   function productscarousel() {
@@ -130,18 +130,18 @@ module.exports.responseFormat = (msg,datafetch) => {
     return sendMessage.sendTextMessage(message);
   }
 
-  if (datafetch == 'productList') {         
+  if (datafetch == 'productList') {
     productscarousel();
   }
   if (datafetch == 'productListCard') {
-    productscard();    
+    productscard();
   }
   if (datafetch == 'productImages') {
-    displayImage();    
+    displayImage();
   }
   if (datafetch == 'productVideos') {
-    displayVideo();    
-  }  
+    displayVideo();
+  }
   if (datafetch == 'Headphones') {
     productscarousel();
   }
