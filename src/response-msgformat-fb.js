@@ -129,10 +129,7 @@ module.exports.responseFormat = (msg, datafetch) => {
     };
     return sendMessage.sendTextMessage(message);
   }
-
-  if (datafetch == 'productList') {
-    productscarousel();
-  }
+  
   if (datafetch == 'productListCard') {
     productscard();
   }
@@ -142,28 +139,7 @@ module.exports.responseFormat = (msg, datafetch) => {
   if (datafetch == 'productVideos') {
     displayVideo();
   }
-  if (datafetch == 'Headphones') {
-    productscarousel();
-  }
-  if (datafetch == 'Sunglass') {
-    productscarousel();
-  }
-  if (datafetch == 'Tablets') {
-    productscarousel();
-  }
-  if (datafetch == 'Books') {
-    productscarousel();
-  }
-  if (datafetch == 'Mobiles') {
-    productscarousel();
-  }
-  if (datafetch == 'Shoes') {
-    productscarousel();
-  }
-  if (datafetch == 'Bags') {
-    productscarousel();
-  }
-  if (datafetch == 'Laptop') {
+  if (datafetch == 'productList' || datafetch == 'Headphones' || datafetch == 'Sunglass' || datafetch == 'Tablets' || datafetch == 'Books' || datafetch == 'Mobiles' || datafetch == 'Shoes' || datafetch == 'Bags' || datafetch == 'Laptop' ) {
     productscarousel();
   }
 }

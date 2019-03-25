@@ -8,26 +8,27 @@ const shop = "barista-shop1";
 
 let productApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/products.json';
 
-let top10productsApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84963459143';
-let headphonesApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84818362439';
-let sunglassApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84818395207';
-let tabletsApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84818460743';
-let booksApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84948844615';
-let mobilesApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84948975687';
-let shoesApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84948942919';
-let bagsApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84949041223';
-let laptopApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=84948877383';
+let collection_url = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=';
 
-let top10productslist = [];
-let headphoneslist = [];
-let sunglasslist = [];
-let tabletslist = [];
-let bookslist = [];
-let mobileslist = [];
-let shoeslist = [];
-let bagslist = [];
-let laptoplist = [];
+let top10productsApi = collection_url + '84963459143',
+headphonesApi = collection_url +'84818362439',
+sunglassApi = collection_url + '84818395207',
+tabletsApi = collection_url + '84818460743',
+booksApi = collection_url + '84948844615',
+mobilesApi = collection_url + '84948975687',
+shoesApi = collection_url + '84948942919',
+bagsApi = collection_url + '84949041223',
+laptopApi = collection_url + '84948877383';
 
+let top10productslist = [], 
+headphoneslist = [], 
+sunglasslist = [], 
+tabletslist = [], 
+bookslist = [], 
+mobileslist = [], 
+shoeslist = [], 
+bagslist = [], 
+laptoplist = [];
 
 request.get(top10productsApi, (err, response, body) => {
   if (!err && response.statusCode == 200) {
@@ -203,7 +204,7 @@ module.exports = (datafetch) => {
           CollectionDisplay(top10productslist);
           responseFormat.responseFormat(msg, datafetch);
           break;
-
+        
         case "Headphones":
           CollectionDisplay(headphoneslist);
           responseFormat.responseFormat(msg, datafetch);
