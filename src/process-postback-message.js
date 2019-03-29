@@ -28,9 +28,9 @@ const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 var userId = null;
 
-const username = '43a8a24f406c63e004835ce1565fd01b';
-const password = 'a895e46425a7067388c8f9c4e00e48d6';
-const shop = "barista-shop1";
+const username = 'fe82343692939d58e3654f6c8131df91';
+const password = '915090b3b66d219fbb64feab6599f40b';
+const shop = "barista-shop2";
 
 let productApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/products.json';
 

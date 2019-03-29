@@ -2,23 +2,23 @@
 const responseFormat = require('./response-msgformat-fb');
 const request = require('request');
 
-const username = '43a8a24f406c63e004835ce1565fd01b';
-const password = 'a895e46425a7067388c8f9c4e00e48d6';
-const shop = "barista-shop1";
+const username = 'fe82343692939d58e3654f6c8131df91';
+const password = '915090b3b66d219fbb64feab6599f40b';
+const shop = "barista-shop2";
 
 let productApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/products.json';
 
 let collection_url = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/collects.json?collection_id=';
 
-let top10productsApi = collection_url + '84963459143',
-headphonesApi = collection_url +'84818362439',
-sunglassApi = collection_url + '84818395207',
-tabletsApi = collection_url + '84818460743',
-booksApi = collection_url + '84948844615',
-mobilesApi = collection_url + '84948975687',
-shoesApi = collection_url + '84948942919',
-bagsApi = collection_url + '84949041223',
-laptopApi = collection_url + '84948877383';
+let top10productsApi = collection_url + '89296306257',
+headphonesApi = collection_url +'89296240721',
+sunglassApi = collection_url + '89295814737',
+tabletsApi = collection_url + '89295913041',
+booksApi = collection_url + '89295945809',
+mobilesApi = collection_url + '89296076881',
+shoesApi = collection_url + '89296207953',
+bagsApi = collection_url + '89295716433',
+laptopApi = collection_url + '89296175185';
 
 let top10productslist = [], 
 headphoneslist = [], 
