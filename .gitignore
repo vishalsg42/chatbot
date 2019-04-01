@@ -69,4 +69,5 @@
 node_modules
 .env
 data.json
+ngrok
 # .eslintrc.js
