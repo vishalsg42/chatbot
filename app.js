@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 // Activating .env
 require('dotenv').config();
 
+const {demo} = require("./src/process-shopify")
+
 // Facebook webhook
 const { verifyWebhook } = require('./src/verify-webhook');
 const messageWebhook = require('./src/message-webhook');
@@ -26,6 +28,8 @@ app.get('/', function (req, res) {
   res.send('Hello world, I am a chat bot')
 })
 
+app.get("/demo", demo);
+
 // Facebook verification and messagepassing method call
 app.get('/webhook', verifyWebhook);
 app.post('/webhook', messageWebhook);
@@ -33,7 +37,7 @@ app.post('/webhook', messageWebhook);
 // Dialogflow webhook
 app.post('/ai', handleAction);
 
-app.listen(process.env.PORT || 8000, () => {
-  console.log(`App is running on port 8000`)
-  // debug(`App is running on ${chalk.green(8000)}`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`App is running on port 3000`)
+  // debug(`App is running on ${chalk.green(3000)}`);
 });

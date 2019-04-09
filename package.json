@@ -18,7 +18,8 @@
     "express": "^4.16.4",
     "facebook-bot-messenger": "^1.0.8",
     "node-fetch": "^2.3.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "shopify-api-node": "^2.18.1"
   },
   "devDependencies": {
     "eslint": "^5.14.1",
