@@ -9,7 +9,7 @@ const request = require('request');
 const projectId = "agent-anonym";
 const sessionId = '123456';
 const languageCode = 'en-US';
-const PAGE_ACCESS_TOKEN = 'EAAQ4elkZCrUgBAHm0efKxkvp0uTw7OmKbJE8HggdqEIZBZA4UWyp8QIJyh79ZCrGM4NDcu22ZBbvEOa36wf0OgZBPd5cfz2Adri8AIFhEAK5TjZBSwnb0ZBvQwMSUn99tPSD0wpvT0v2Wfx6RkAyZByGvoCZCGZAP5Hj9euaW8BvyUZCMAZDZD';
+const PAGE_ACCESS_TOKEN = 'EAAQ4elkZCrUgBAOKn6ypnxWJLyzVNF59Ekjs40tD8hfjlaRiDd6Ufa795ydgOnsE8YuwhrA5hrQstZBt4ZBpqWM7X9Qszw8KZBHZCk4Cxi0BRl9dbENwnWZBAWYn59p0PXgd1BzRoLAeTIfIUrkFpcUlQnuK9AstxVf6jNZBElaMjXIqS33FvyU';
 
 // debug(PAGE_ACCESS_TOKEN);
 
@@ -28,9 +28,9 @@ const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
 var userId = null;
 
-const username = 'fe82343692939d58e3654f6c8131df91';
-const password = '915090b3b66d219fbb64feab6599f40b';
-const shop = "barista-shop2";
+const username = 'bb90d9ee50669214afce032853c66644';
+const password = '2c25285b3f183e30d9c3f3d121af676b';
+const shop = "barista-shop3";
 
 let productApi = 'https://' + username + ':' + password + '@' + shop + '.myshopify.com/admin/products.json';
 
