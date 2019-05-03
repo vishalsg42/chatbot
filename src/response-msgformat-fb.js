@@ -13,20 +13,18 @@ module.exports.responseFormat = (msg, datafetch) => {
         "image_url": "",
         "default_action": {
           "type": "web_url",
-          "url": "",
-          "messenger_extensions": true,
-          "webview_height_ratio": "tall",
+          "url": ""
         },
         "buttons": [
           {
             "type": "web_url",
-            "url": '',
+            "url": "",
             "title": "View product"
           },
           {
-            "type": "postback",
-            "title": "Buy product",
-            "payload": ""
+            "type": "web_url",
+            "url": "",
+            "title": "Buy product"          
           },
           {
             "type": "element_share",
@@ -64,7 +62,7 @@ module.exports.responseFormat = (msg, datafetch) => {
       items.image_url = msg[i].img;
       items.default_action.url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
       items.buttons[0].url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
-      items.buttons[1].payload = msg[i].variantId + 'order';
+      items.buttons[1].url = 'https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/cart/' + msg[i].variantId + ':1';
 
       elements.push(items);
     }
@@ -92,16 +90,12 @@ module.exports.responseFormat = (msg, datafetch) => {
             "title": "View",
             "type": "web_url",
             "url": "",
-            "messenger_extensions": true,
-            "webview_height_ratio": "COMPACT",
             "fallback_url": `https://${config.shop}.myshopify.com/`
           }
         ],
         "default_action": {
           "type": "web_url",
-          "url": "",
-          "messenger_extensions": true,
-          "webview_height_ratio": "COMPACT"
+          "url": ""
         },
       }
       items.title = msg[i].title;
@@ -185,9 +179,7 @@ module.exports.responseFormat = (msg, datafetch) => {
           "image_url": "",
           "default_action": {
             "type": "web_url",
-            "url": "",
-            "messenger_extensions": true,
-            "webview_height_ratio": "tall",
+            "url": ""
           },
           "buttons": [
             {

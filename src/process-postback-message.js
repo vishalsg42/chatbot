@@ -261,9 +261,9 @@ module.exports = (event) => {
     })
   }
 
-  if (payload.trim().replace(/[^\d]/g,"").trim() === "order") {
+  // if (payload.trim().replace(/[^a-zA-Z]/g,"").trim() === "order") {
 
-  }
+  // }
 
   if (payload === "receipt") {
     const promise = new Promise((resolve, reject) => {
