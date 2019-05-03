@@ -9,8 +9,6 @@ const bodyParser = require('body-parser');
 // Activating .env
 require('dotenv').config();
 
-const {demo} = require("./src/process-shopify")
-
 // Facebook webhook
 const { verifyWebhook } = require('./src/verify-webhook');
 const messageWebhook = require('./src/message-webhook');
@@ -27,8 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res) {
   res.send('Hello world, I am a chat bot')
 })
-
-app.get("/demo", demo);
 
 // Facebook verification and messagepassing method call
 app.get('/webhook', verifyWebhook);

@@ -5,7 +5,8 @@ const custom = `https://${config.username}:${config.password}@${config.shop}.mys
 const customCollectionsId = `https://${config.username}:${config.password}@${config.shop}.myshopify.com/admin/custom_collections/`;
 const collects = `https://${config.username}:${config.password}@${config.shop}.myshopify.com/admin/collects.json?collection_id=`;
 
-function url() {
+module.exports.url = () => {
+
   const customCollectionsIdUrl = {
     bags: '',
     books: '',
@@ -87,8 +88,5 @@ function url() {
   });
 
   return customCollectionsIdUrl;
+
 }
-
-let a = url();
-
-exports.a;

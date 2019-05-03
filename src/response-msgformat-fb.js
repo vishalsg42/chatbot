@@ -1,9 +1,8 @@
 const sendMessage = require('./process-message');
-
+const config = require('./config');
 
 module.exports.responseFormat = (msg, datafetch) => {
   let elements = [];
-  // debug(`message is ${msg} for this ${datafetch}`);
   let l = '';
   function productscarousel() {
     l = msg.length;
@@ -23,14 +22,48 @@ module.exports.responseFormat = (msg, datafetch) => {
             "type": "web_url",
             "url": '',
             "title": "View product"
+          },
+          {
+            "type": "postback",
+            "title": "Buy product",
+            "payload": "order"
+          },
+          {
+            "type": "element_share",
+            "share_contents": {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "generic",
+                  "elements": [
+                    {
+                      "title": "I took the hat quiz",
+                      "subtitle": "My result: Fez",
+                      "image_url": "https://bot.peters-hats.com/img/hats/fez.jpg",
+                      "default_action": {
+                        "type": "web_url",
+                        "url": "http://m.me/petershats?ref=invited_by_24601"
+                      },
+                      "buttons": [
+                        {
+                          "type": "web_url",
+                          "url": "http://m.me/petershats?ref=invited_by_24601", 
+                          "title": "Take Quiz"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
           }
         ]
       }
       items.title = msg[i].title;
       items.subtitle = msg[i].subtitle;
       items.image_url = msg[i].img;
-      items.default_action.url = "https://barista-shop1.myshopify.com/products/" + msg[i].productURL;
-      items.buttons[0].url = 'https://barista-shop1.myshopify.com/products/' + msg[i].productURL;
+      items.default_action.url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
+      items.buttons[0].url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
 
       elements.push(items);
     }
@@ -60,7 +93,7 @@ module.exports.responseFormat = (msg, datafetch) => {
             "url": "",
             "messenger_extensions": true,
             "webview_height_ratio": "COMPACT",
-            "fallback_url": "https://barista-shop1.myshopify.com/"
+            "fallback_url": `https://${config.shop}.myshopify.com/`
           }
         ],
         "default_action": {
@@ -73,8 +106,8 @@ module.exports.responseFormat = (msg, datafetch) => {
       items.title = msg[i].title;
       items.subtitle = msg[i].subtitle;
       items.image_url = msg[i].img;
-      items.default_action.url = "https://barista-shop1.myshopify.com/products/" + msg[i].productURL;
-      items.buttons[0].url = 'https://barista-shop1.myshopify.com/products/' + msg[i].productURL;
+      items.default_action.url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
+      items.buttons[0].url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
 
       elements.push(items);
     }
@@ -139,7 +172,48 @@ module.exports.responseFormat = (msg, datafetch) => {
   if (datafetch == 'productVideos') {
     displayVideo();
   }
-  if (datafetch == 'productList' || datafetch == 'Headphones' || datafetch == 'Sunglass' || datafetch == 'Tablets' || datafetch == 'Books' || datafetch == 'Mobiles' || datafetch == 'Shoes' || datafetch == 'Bags' || datafetch == 'Laptop' ) {
+  if (datafetch == 'productList' || datafetch == 'Headphones' || datafetch == 'Sunglass' || datafetch == 'Tablets' || datafetch == 'Books' || datafetch == 'Mobiles' || datafetch == 'Bags' || datafetch == 'Laptop') {
     productscarousel();
+  }
+  if (datafetch == 'Shoes') {
+      l = msg.length;
+      for (let i = 0; i < l; i++) {
+        let items = {
+          "title": "",
+          "subtitle": "",
+          "image_url": "",
+          "default_action": {
+            "type": "web_url",
+            "url": "",
+            "messenger_extensions": true,
+            "webview_height_ratio": "tall",
+          },
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "View product",
+              "payload": ""
+            }
+          ]
+        }
+        items.title = msg[i].title;
+        items.subtitle = msg[i].subtitle;
+        items.image_url = msg[i].img;
+        items.default_action.url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
+        // items.buttons[0].url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
+        items.buttons[0].payload = "shoes " + msg[i].productID;
+
+        elements.push(items);
+      }
+      const message = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "generic",
+            "elements": elements,
+          }
+        }
+      };
+      return sendMessage.sendTextMessage(message);
   }
 }

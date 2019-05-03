@@ -1,11 +1,6 @@
-// For sending requests to Facebook API
 const fetch = require('node-fetch');
-
 const config = require("./config")
-
-// Dialogflow API
 const dialogflow = require('dialogflow');
-
 const languageCode = config.languageCode;
 
 const creds = {
@@ -16,7 +11,6 @@ const creds = {
 };
 
 const sessionClient = new dialogflow.SessionsClient(creds);
-
 const sessionPath = sessionClient.sessionPath(config.projectId, config.sessionId);
 
 let userId = null;
@@ -46,12 +40,11 @@ module.exports = (event) => {
     .catch((err) => {
       console.log(err);
     });
-
 };
 
+module.exports.sendTextMessage = async(text, txtRes) => {
 
-module.exports.sendTextMessage = (text) => {
-  fetch(
+  await fetch(
     `https://graph.facebook.com/v2.6/me/messages?access_token=${config.PAGE_ACCESS_TOKEN}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -62,8 +55,56 @@ module.exports.sendTextMessage = (text) => {
         recipient: {
           id: userId,
         },
-        message: text,
+        sender_action: 'typing_on', 
+      })
+    }
+  );
+  
+  await fetch(
+    `https://graph.facebook.com/v2.6/me/messages?access_token=${config.PAGE_ACCESS_TOKEN}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        messaging_type: 'RESPONSE',
+        recipient: {
+          id: userId,
+        },
+        message: text
       }),
     },
+  );
+
+  await fetch(
+    `https://graph.facebook.com/v2.6/me/messages?access_token=${config.PAGE_ACCESS_TOKEN}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        messaging_type: 'RESPONSE',
+        recipient: {
+          id: userId,
+        },
+        message: txtRes
+      }),
+    },
+  );
+
+  await fetch(
+    `https://graph.facebook.com/v2.6/me/messages?access_token=${config.PAGE_ACCESS_TOKEN}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        messaging_type: 'RESPONSE',
+        recipient: {
+          id: userId,
+        },
+        sender_action: 'typing_off', 
+      })
+    }
   );
 };
