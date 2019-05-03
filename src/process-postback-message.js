@@ -3,7 +3,8 @@ const dialogflow = require('dialogflow');
 const request = require('request');
 const config = require("./config");
 const languageCode = config.languageCode;
-const moment = require("moment")
+const moment = require("moment");
+const striptags = require('striptags');
 
 const creds = {
   credentials: {
@@ -260,51 +261,93 @@ module.exports = (event) => {
     })
   }
 
-  if (payload === "order") {
-    request.get('https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/admin/orders.json?ids=1024349044796', (err, res, body) => {
-      if (!err && res.statusCode == 200) {
-        let json = JSON.parse(body);
+  if (payload.trim().replace(/[^\d]/g,"").trim() === "order") {
 
-        const text = {
-          "attachment": {
-            "type": "template",
-            "payload":{
-              "template_type":"receipt",
-              "recipient_name":json.orders[0].customer.first_name + "" + json.orders[0].customer.last_name,
-              "order_number":json.orders[0].name,
-              "currency":json.orders[0].currency,
-              "payment_method": json.orders[0].gateway,        
-              "order_url":json.orders[0].order_status_url,
-              "timestamp":moment(json.orders[0].created_at).unix(),         
-              "address":{
-                "street_1":json.orders[0].shipping_address.address1,
-                "city":json.orders[0].shipping_address.city,
-                "postal_code":json.orders[0].shipping_address.zip,
-                "state":json.orders[0].shipping_address.province,
-                "country":json.orders[0].shipping_address.country
-              },
-              "summary":{
-                "subtotal":json.orders[0].subtotal_price,
-                "shipping_cost":json.orders[0].total_shipping_price_set.shop_money.amount,
-                "total_tax":json.orders[0].total_tax,
-                "total_cost":json.orders[0].total_price
-              },
-              "elements":[
-                {
-                  "title":json.order[0].line_items[0].title,
-                  "subtitle":"100% Soft and Luxurious Cotton",
-                  "quantity":2,
-                  "price":50,
-                  "currency":"USD",
-                  "image_url":"http://petersapparel.parseapp.com/img/whiteshirt.png"
-                }
-              ]
+  }
+
+  if (payload === "receipt") {
+    const promise = new Promise((resolve, reject) => {
+      request.get('https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/admin/orders/1024349044796.json', (err, res, body) => {
+        if (!err && res.statusCode == 200) {
+          let json = JSON.parse(body);
+					console.log("Example: json", json)
+  
+          const textMsg = {
+            "recipient_name":json.order.customer.first_name + " " + json.order.customer.last_name,
+            "order_number":json.order.name,
+            "currency":json.order.currency,
+            "payment_method": json.order.gateway,        
+            "order_url":json.order.order_status_url,
+            "timestamp":moment(json.order.created_at).unix(),
+            "street_1":json.order.shipping_address.address1,
+            "city":json.order.shipping_address.city,
+            "postal_code":json.order.shipping_address.zip,
+            "state":json.order.shipping_address.province,
+            "country":json.order.shipping_address.country,
+            "subtotal":json.order.subtotal_price,
+            "shipping_cost":json.order.total_shipping_price_set.shop_money.amount,
+            "total_tax":json.order.total_tax,
+            "total_cost":json.order.total_price,
+            "title":json.order.line_items[0].title,
+            "productId":json.order.line_items[0].product_id,
+            "quantity":json.order.line_items[0].quantity,
+            "price":json.order.line_items[0].price,
+            "currency":json.order.line_items[0].price_set.shop_money.currency_code,
+          }
+          resolve(textMsg);
+        }
+      });
+    });
+
+    promise.then(data => {
+      request.get('https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/admin/products.json?ids='+data.productId, (err, res, body) => {
+        if (!err && res.statusCode == 200) {
+          let json = JSON.parse(body);
+
+          const description = striptags(json.products[0].body_html);
+          const imageUrl = json.products[0].image.src;
+
+          const text = {
+            "attachment": {
+              "type": "template",
+              "payload":{
+                "template_type":"receipt",
+                "recipient_name":data.recipient_name,
+                "order_number":data.order_number,
+                "currency":data.currency,
+                "payment_method":data.payment_method,        
+                "order_url":data.order_url,
+                "timestamp":data.timestamp,         
+                "address":{
+                  "street_1":data.street_1,
+                  "city":data.city,
+                  "postal_code":data.postal_code,
+                  "state":data.state,
+                  "country":data.country
+                },
+                "summary":{
+                  "subtotal":data.subtotal,
+                  "shipping_cost":data.shipping_cost,
+                  "total_tax":data.total_tax,
+                  "total_cost":data.total_cost
+                },
+                "elements":[
+                  {
+                    "title":data.title,
+                    "subtitle":description,
+                    "quantity":data.quantity,
+                    "price":data.price,
+                    "currency":data.currency,
+                    "image_url":imageUrl
+                  }
+                ]
+              }
             }
           }
-        }
 
-        return sendTextMessage(text);
-      }
+          return sendTextMessage(text);
+        }
+      });
     });
   }
 

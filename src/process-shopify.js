@@ -377,7 +377,8 @@ module.exports = {
             title: '',
             subtitle: '',
             img: '',
-            productURL: ''
+            productURL: '',
+            variantId: ''
           };
 
           for (i in json.products) {
@@ -385,6 +386,7 @@ module.exports = {
             elements.subtitle = "Price : " + json.products[i].variants[0].price;
             elements.img = json.products[i].image.src;
             elements.productURL = json.products[i].handle;
+            elements.variantId = json.products[i].variants[0].id;
 
             msg.push(elements);
             
@@ -392,7 +394,8 @@ module.exports = {
               title: '',
               subtitle: '',
               img: '',
-              productURL: ''
+              productURL: '',
+              variantId: ''
             };
           }
           responseFormat.responseFormat(msg, datafetch);

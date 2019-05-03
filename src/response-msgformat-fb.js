@@ -26,7 +26,7 @@ module.exports.responseFormat = (msg, datafetch) => {
           {
             "type": "postback",
             "title": "Buy product",
-            "payload": "order"
+            "payload": ""
           },
           {
             "type": "element_share",
@@ -64,6 +64,7 @@ module.exports.responseFormat = (msg, datafetch) => {
       items.image_url = msg[i].img;
       items.default_action.url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
       items.buttons[0].url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
+      items.buttons[1].payload = msg[i].variantId + 'order';
 
       elements.push(items);
     }
