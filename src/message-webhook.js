@@ -1,5 +1,6 @@
 // const debug = require('debug')('Message Webhook');
 const processMessage = require('./process-message');
+const {sendTextMessage} = require('./process-message');
 const processPostbackMessage = require('./process-postback-message');
 const dependencies = require("./controllers/dependencies").default;
 const processShopify = require('./process-shopify');

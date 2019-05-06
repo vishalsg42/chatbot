@@ -22,6 +22,10 @@ let collectionApi = 'https://' + config.username + ':' + config.password + '@' +
 
 let userId = null;
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 module.exports = (event) => {
   userId = event.sender.id;
   let payload = event.postback.payload;
@@ -131,7 +135,7 @@ module.exports = (event) => {
         }
 
         for (i in json.custom_collections) {
-          elements.title = json.custom_collections[i].title;
+          elements.title = capitalizeFirstLetter(json.custom_collections[i].title);
           elements.handle = json.custom_collections[i].handle;
 
           headings.push(elements);

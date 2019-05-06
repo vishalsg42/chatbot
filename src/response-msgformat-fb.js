@@ -35,18 +35,18 @@ module.exports.responseFormat = (msg, datafetch) => {
                   "template_type": "generic",
                   "elements": [
                     {
-                      "title": "I took the hat quiz",
-                      "subtitle": "My result: Fez",
-                      "image_url": "https://bot.peters-hats.com/img/hats/fez.jpg",
+                      "title": "",
+                      "subtitle": "",
+                      "image_url": "",
                       "default_action": {
                         "type": "web_url",
-                        "url": "http://m.me/petershats?ref=invited_by_24601"
+                        "url": ""
                       },
                       "buttons": [
                         {
                           "type": "web_url",
-                          "url": "http://m.me/petershats?ref=invited_by_24601", 
-                          "title": "Take Quiz"
+                          "url": "", 
+                          "title": "View Product"
                         }
                       ]
                     }
@@ -63,6 +63,12 @@ module.exports.responseFormat = (msg, datafetch) => {
       items.default_action.url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
       items.buttons[0].url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
       items.buttons[1].url = 'https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/cart/' + msg[i].variantId + ':1';
+      
+      items.buttons[2].share_contents.attachment.payload.elements[0].title = msg[i].title;
+      items.buttons[2].share_contents.attachment.payload.elements[0].subtitle = msg[i].subtitle;
+      items.buttons[2].share_contents.attachment.payload.elements[0].image_url = msg[i].img;
+      items.buttons[2].share_contents.attachment.payload.elements[0].default_action.url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
+      items.buttons[2].share_contents.attachment.payload.elements[0].buttons[0].url = `https://${config.shop}.myshopify.com/products/` + msg[i].productURL;
 
       elements.push(items);
     }

@@ -13,6 +13,10 @@ require('dotenv').config();
 const { verifyWebhook } = require('./src/verify-webhook');
 const messageWebhook = require('./src/message-webhook');
 
+// Shopify webhook
+const orderPayment = require('./src/orderPayment');
+const orderFulfillment = require('./src/orderFulfillment')
+
 //  Dialogflow webhook
 const { handleAction } = require('./src/handel-action');
 
@@ -29,6 +33,10 @@ app.get('/', function (req, res) {
 // Facebook verification and messagepassing method call
 app.get('/webhook', verifyWebhook);
 app.post('/webhook', messageWebhook);
+
+// Shopify webhooks 
+app.post('/orderPayment', orderPayment);
+app.post('/orderFulfillment', orderFulfillment);
 
 // Dialogflow webhook
 app.post('/ai', handleAction);
