@@ -209,9 +209,9 @@ module.exports = {
 
       case "Headphones":
         const headphonesURL = url[0][2];
-				console.log("Example: headphonesURL", headphonesURL)
+				// console.log("Example: headphonesURL", headphonesURL)
         const headphonesURLID = headphonesURL.replace(/[^0-9]/g, '');
-				console.log("Example: headphonesURLID", headphonesURLID)
+				// console.log("Example: headphonesURLID", headphonesURLID)
 
         request.get('https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/admin/products.json?collection_id='+headphonesURLID, (err, res, body) => {
           if(!err && res.statusCode == 200 && datafetch) {
@@ -245,14 +245,14 @@ module.exports = {
               variantId: ''
             };
           }
-					console.log("Example: msg", msg)
+					// console.log("Example: msg", msg)
           responseFormat.responseFormat(msg, datafetch);
         }
         })
         break;
 
       case "Sunglass":
-        const sunglassURL = url[0][3];
+        const sunglassURL = url[0][6];
         const sunglassURLID = sunglassURL.replace(/[^0-9]/g, '');
 
         request.get('https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/admin/products.json?collection_id='+sunglassURLID, (err, res, body) => {

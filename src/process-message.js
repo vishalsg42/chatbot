@@ -43,6 +43,7 @@ module.exports = (event) => {
 };
 
 module.exports.sendTextMessage = async(text, txtRes) => {
+  console.log('process', text);
 
   await fetch(
     `https://graph.facebook.com/v2.6/me/messages?access_token=${config.PAGE_ACCESS_TOKEN}`, {

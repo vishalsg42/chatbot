@@ -1,27 +1,29 @@
-const {sendTextMessage} = require('./process-message');
+/* Order Payment Code */
+
+const { sendTextMessage } = require('./process-message');
 const config = require('./config');
 const moment = require("moment");
 const striptags = require('striptags');
 const request = require('request');
 
 module.exports = (req, res) => {
-  
+
   res.sendStatus(200);
 
   if (req.body) {
     let json = req.body;
 
     const promise = new Promise((resolve, reject) => {
-      
+
       const receiptElements = [];
 
-      let elements1 = {
-        title:"",
-        productId:"",
-        quantity:"",
-        price:"",
-        currency:""
-      };
+      let elements1 = [{
+        title: "",
+        productId: "",
+        quantity: "",
+        price: "",
+        currency: ""
+      }];
 
       for (i in json.line_items) {
         elements1.title = json.line_items[i].title;
@@ -33,128 +35,251 @@ module.exports = (req, res) => {
         receiptElements.push(elements1);
 
         elements1 = {
-          title:"",
-          productId:"",
-          quantity:"",
-          price:"",
-          currency:""
+          title: "",
+          productId: "",
+          quantity: "",
+          price: "",
+          currency: ""
         }
-        
+
       }
 
       const y = [];
 
       for (i in receiptElements) {
         let x = {
-          "title":receiptElements[i].title,
-          "productId":receiptElements[i].productId,
-          "quantity":receiptElements[i].quantity,
-          "price":receiptElements[i].price,
-          "currency":receiptElements[i].currency
+          "title": receiptElements[i].title,
+          "productId": receiptElements[i].productId,
+          "quantity": receiptElements[i].quantity,
+          "price": receiptElements[i].price,
+          "currency": receiptElements[i].currency
         }
 
         y.push(x);
-        
+
         x = {
-          "title":"",
-          "productId":"",
-          "quantity":"",
-          "price":"",
-          "currency":""
+          "title": "",
+          "productId": "",
+          "quantity": "",
+          "price": "",
+          "currency": ""
         }
 
       }
 
       const textMsg = {
-        "recipient_name":json.customer.first_name + " " + json.customer.last_name,
-        "order_number":json.name,
-        "currency":json.currency,
-        "payment_method": json.gateway,        
-        "order_url":json.order_status_url,
-        "timestamp":moment(json.created_at).unix(),
-        "street_1":json.shipping_address.address1,
-        "city":json.shipping_address.city,
-        "postal_code":json.shipping_address.zip,
-        "state":json.shipping_address.province,
-        "country":json.shipping_address.country,
-        "subtotal":json.subtotal_price,
-        "shipping_cost":json.total_shipping_price_set.shop_money.amount,
-        "total_tax":json.total_tax,
-        "total_cost":json.total_price,
+        "recipient_name": json.customer.first_name + " " + json.customer.last_name,
+        "order_number": json.name,
+        "currency": json.currency,
+        "payment_method": json.gateway,
+        "order_url": json.order_status_url,
+        "timestamp": moment(json.created_at).unix(),
+        "street_1": json.shipping_address.address1,
+        "city": json.shipping_address.city,
+        "postal_code": json.shipping_address.zip,
+        "state": json.shipping_address.province,
+        "country": json.shipping_address.country,
+        "subtotal": json.subtotal_price,
+        "shipping_cost": json.total_shipping_price_set.shop_money.amount,
+        "total_tax": json.total_tax,
+        "total_cost": json.total_price,
         y
       }
 
       resolve(textMsg);
     });
-  
+
     promise.then(data => {
       const material = [];
-      for (i=0 ; i< data.y.length; i++) {
-        request.get('https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/admin/products.json?ids='+data.y[i].productId, (err, res, body) => {
+      for (i = 0; i < data.y.length; i++) {
+        request.get('https://' + config.username + ':' + config.password + '@' + config.shop + '.myshopify.com/admin/products.json?ids=' + data.y[i].productId, (err, res, body) => {
           let json = JSON.parse(body);
-          
 
-          let elements = {
+
+          let elements = [{
             description: "",
             imageUrl: ""
-          }
+          }]
 
           for (i in json.products) {
-            elements.description = striptags(json.products[i].body_html);
-            elements.imageUrl = json.products[i].image.src;
+            elements[i].description = striptags(json.products[i].body_html);
+            elements[i].imageUrl = json.products[i].image.src;
 
             material.push(elements);
 
-            elements = {
+            elements = [{
               description: "",
               imageUrl: ""
-            }
+            }]
           }
 
-          for (z in data.y) {
-            const text = {
+          // for (z in data.y) {                  
+          // let elementObj = [];
+          // for (k = 0; k < data.y.length; k++) {
+          //   elementObj = [
+          //     {
+          //       "title": data.y[k].title,
+          //       "subtitle": material[0].description,
+          //       "quantity": data.y[k].quantity,
+          //       "price": data.y[k].price,
+          //       "currency": data.y[k].currency,
+          //       "image_url": material[0].imageUrl
+          //     }
+          //   ];
+          // }
+
+          // const elementObj = [
+          //   {
+          //     "title": "Headphones",
+          //     "subtitle": "Philips",
+          //     "quantity": 4,
+          //     "price": 1245,
+          //     "currency": "INR",
+          //     "image_url": "https://cdn.shopify.com/s/files/1/0097/1767/8140/products/blue71XmDEf_-FL._SL1266_470x.jpg?v=1556780061"
+          //   },
+          //   {
+          //     "title": "Laptop",
+          //     "subtitle": "Macbook Pro",
+          //     "quantity": 1,
+          //     "price": "215550",
+          //     "currency": "INR",
+          //     "image_url": "https://cdn.shopify.com/s/files/1/0097/1767/8140/products/816trfSfP3L._SL1500_470x.jpg?v=1556780070"
+          //   },
+          //   {
+          //     "title": "Bags",
+          //     "subtitle": "VIP Backpack",
+          //     "quantity": 2,
+          //     "price": 6000,
+          //     "currency": "INR",
+          //     "image_url": "https://cdn.shopify.com/s/files/1/0097/1767/8140/products/91xc1hEFRoL._SL1500_360x.jpg?v=1556780032"
+          //   }
+          // ];
+
+          // const elementsdata = [];
+          // for (let j = 0; j < data.y.length; j++) {
+          //   elementsdata.push(elementObj[j]);
+          // }
+
+          // for (k = 0; k < data.y.length; k++) {
+            // const text = {
+            //   "attachment": {
+            //     "type": "template",
+            //     "payload": {
+            //       "template_type": "receipt",
+            //       "recipient_name": data.recipient_name,
+            //       "order_number": data.order_number,
+            //       "currency": data.currency,
+            //       "payment_method": data.payment_method,
+            //       "order_url": data.order_url,
+            //       "timestamp": data.timestamp,
+            //       "address": {
+            //         "street_1": data.street_1,
+            //         "city": data.city,
+            //         "postal_code": data.postal_code,
+            //         "state": data.state,
+            //         "country": data.country
+            //       },
+            //       "summary": {
+            //         "subtotal": data.subtotal,
+            //         "shipping_cost": data.shipping_cost,
+            //         "total_tax": data.total_tax,
+            //         "total_cost": data.total_cost
+            //       },
+            //       "elements": elementsdata
+            //     }
+            //   }
+            // }
+
+            // console.log("Example: text", text.attachment.payload.elements);
+            // return sendTextMessage(text);
+          });
+        }
+
+      const text1 = {
+        'text': ""
+      }
+
+      for (j=0; j<data.y.lenght; j++) {
+        const text = {
               "attachment": {
                 "type": "template",
-                "payload":{
-                  "template_type":"receipt",
-                  "recipient_name":data.recipient_name,
-                  "order_number":data.order_number,
-                  "currency":data.currency,
-                  "payment_method":data.payment_method,        
-                  "order_url":data.order_url,
-                  "timestamp":data.timestamp,         
-                  "address":{
-                    "street_1":data.street_1,
-                    "city":data.city,
-                    "postal_code":data.postal_code,
-                    "state":data.state,
-                    "country":data.country
+                "payload": {
+                  "template_type": "receipt",
+                  "recipient_name": data.recipient_name,
+                  "order_number": data.order_number,
+                  "currency": data.currency,
+                  "payment_method": data.payment_method,
+                  "order_url": data.order_url,
+                  "timestamp": data.timestamp,
+                  "address": {
+                    "street_1": data.street_1,
+                    "city": data.city,
+                    "postal_code": data.postal_code,
+                    "state": data.state,
+                    "country": data.country
                   },
-                  "summary":{
-                    "subtotal":data.subtotal,
-                    "shipping_cost":data.shipping_cost,
-                    "total_tax":data.total_tax,
-                    "total_cost":data.total_cost
+                  "summary": {
+                    "subtotal": data.subtotal,
+                    "shipping_cost": data.shipping_cost,
+                    "total_tax": data.total_tax,
+                    "total_cost": data.total_cost
                   },
-                  "elements":[
+                  "elements": [
                     {
-                      "title":data.y[z].title,
-                      "subtitle":material[z].description,
-                      "quantity":data.y[z].quantity,
-                      "price":data.y[z].price,
-                      "currency":data.y[z].currency,
-                      "image_url":material[z].imageUrl
+                      "title": data.y[j].title,
+                      "subtitle": material[j][0].description,
+                      "quantity": data.y[j].quantity,
+                      "price": data.y[j].price,
+                      "currency": data.y[j].currency,
+                      "image_url": material[j][0].imageUrl
                     }
                   ]
                 }
               }
             }
-
-						console.log("Example: text", text.attachment.payload.elements)
-            return sendTextMessage(text);
+        text1.text = text;
+        text = {
+          "attachment": {
+            "type": "",
+            "payload": {
+              "template_type": "",
+              "recipient_name": "",
+              "order_number": "",
+              "currency": "",
+              "payment_method": "",
+              "order_url": "",
+              "timestamp": "",
+              "address": {
+                "street_1": "",
+                "city": "",
+                "postal_code": "",
+                "state": "",
+                "country": ""
+              },
+              "summary": {
+                "subtotal": "",
+                "shipping_cost": "",
+                "total_tax": "",
+                "total_cost": ""
+              },
+              "elements": [
+                {
+                  "title": "",
+                  "subtitle": "",
+                  "quantity": "",
+                  "price": "",
+                  "currency": "",
+                  "image_url": ""
+                }
+              ]
+            }
           }
-        })
+        }
       }
+
+      console.log('send', text1.text)
+      return sendTextMessage(text1.text);
+      })
 
       // request.get('https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/admin/products.json?ids='+data.productId, (err, res, body) => {
       //   if (!err && res.statusCode == 200) {
@@ -203,7 +328,6 @@ module.exports = (req, res) => {
       //     return sendTextMessage(text);
       //   }
       // });
-    });
-  }
 
-}
+    }
+  }
