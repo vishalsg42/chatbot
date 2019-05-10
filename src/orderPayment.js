@@ -1,5 +1,3 @@
-/* Order Payment Code */
-
 const { sendTextMessage } = require('./process-message');
 const config = require('./config');
 const moment = require("moment");
@@ -14,59 +12,6 @@ module.exports = (req, res) => {
     let json = req.body;
 
     const promise = new Promise((resolve, reject) => {
-
-      const receiptElements = [];
-
-      let elements1 = [{
-        title: "",
-        productId: "",
-        quantity: "",
-        price: "",
-        currency: ""
-      }];
-
-      for (i in json.line_items) {
-        elements1.title = json.line_items[i].title;
-        elements1.productId = json.line_items[i].product_id;
-        elements1.quantity = json.line_items[i].quantity;
-        elements1.price = json.line_items[i].price;
-        elements1.currency = json.line_items[i].price_set.shop_money.currency_code;
-
-        receiptElements.push(elements1);
-
-        elements1 = {
-          title: "",
-          productId: "",
-          quantity: "",
-          price: "",
-          currency: ""
-        }
-
-      }
-
-      const y = [];
-
-      for (i in receiptElements) {
-        let x = {
-          "title": receiptElements[i].title,
-          "productId": receiptElements[i].productId,
-          "quantity": receiptElements[i].quantity,
-          "price": receiptElements[i].price,
-          "currency": receiptElements[i].currency
-        }
-
-        y.push(x);
-
-        x = {
-          "title": "",
-          "productId": "",
-          "quantity": "",
-          "price": "",
-          "currency": ""
-        }
-
-      }
-
       const textMsg = {
         "recipient_name": json.customer.first_name + " " + json.customer.last_name,
         "order_number": json.name,
@@ -83,251 +28,64 @@ module.exports = (req, res) => {
         "shipping_cost": json.total_shipping_price_set.shop_money.amount,
         "total_tax": json.total_tax,
         "total_cost": json.total_price,
-        y
+        "title": json.line_items[0].title,
+        "productId": json.line_items[0].product_id,
+        "quantity": json.line_items[0].quantity,
+        "price": json.line_items[0].price,
+        "currency": json.line_items[0].price_set.shop_money.currency_code,
       }
-
       resolve(textMsg);
     });
 
     promise.then(data => {
-      const material = [];
-      for (i = 0; i < data.y.length; i++) {
-        request.get('https://' + config.username + ':' + config.password + '@' + config.shop + '.myshopify.com/admin/products.json?ids=' + data.y[i].productId, (err, res, body) => {
+      request.get('https://' + config.username + ':' + config.password + '@' + config.shop + '.myshopify.com/admin/products.json?ids=' + data.productId, (err, res, body) => {
+        if (!err && res.statusCode == 200) {
           let json = JSON.parse(body);
 
+          const description = striptags(json.products[0].body_html);
+          const imageUrl = json.products[0].image.src;
 
-          let elements = [{
-            description: "",
-            imageUrl: ""
-          }]
-
-          for (i in json.products) {
-            elements[i].description = striptags(json.products[i].body_html);
-            elements[i].imageUrl = json.products[i].image.src;
-
-            material.push(elements);
-
-            elements = [{
-              description: "",
-              imageUrl: ""
-            }]
-          }
-
-          // for (z in data.y) {                  
-          // let elementObj = [];
-          // for (k = 0; k < data.y.length; k++) {
-          //   elementObj = [
-          //     {
-          //       "title": data.y[k].title,
-          //       "subtitle": material[0].description,
-          //       "quantity": data.y[k].quantity,
-          //       "price": data.y[k].price,
-          //       "currency": data.y[k].currency,
-          //       "image_url": material[0].imageUrl
-          //     }
-          //   ];
-          // }
-
-          // const elementObj = [
-          //   {
-          //     "title": "Headphones",
-          //     "subtitle": "Philips",
-          //     "quantity": 4,
-          //     "price": 1245,
-          //     "currency": "INR",
-          //     "image_url": "https://cdn.shopify.com/s/files/1/0097/1767/8140/products/blue71XmDEf_-FL._SL1266_470x.jpg?v=1556780061"
-          //   },
-          //   {
-          //     "title": "Laptop",
-          //     "subtitle": "Macbook Pro",
-          //     "quantity": 1,
-          //     "price": "215550",
-          //     "currency": "INR",
-          //     "image_url": "https://cdn.shopify.com/s/files/1/0097/1767/8140/products/816trfSfP3L._SL1500_470x.jpg?v=1556780070"
-          //   },
-          //   {
-          //     "title": "Bags",
-          //     "subtitle": "VIP Backpack",
-          //     "quantity": 2,
-          //     "price": 6000,
-          //     "currency": "INR",
-          //     "image_url": "https://cdn.shopify.com/s/files/1/0097/1767/8140/products/91xc1hEFRoL._SL1500_360x.jpg?v=1556780032"
-          //   }
-          // ];
-
-          // const elementsdata = [];
-          // for (let j = 0; j < data.y.length; j++) {
-          //   elementsdata.push(elementObj[j]);
-          // }
-
-          // for (k = 0; k < data.y.length; k++) {
-            // const text = {
-            //   "attachment": {
-            //     "type": "template",
-            //     "payload": {
-            //       "template_type": "receipt",
-            //       "recipient_name": data.recipient_name,
-            //       "order_number": data.order_number,
-            //       "currency": data.currency,
-            //       "payment_method": data.payment_method,
-            //       "order_url": data.order_url,
-            //       "timestamp": data.timestamp,
-            //       "address": {
-            //         "street_1": data.street_1,
-            //         "city": data.city,
-            //         "postal_code": data.postal_code,
-            //         "state": data.state,
-            //         "country": data.country
-            //       },
-            //       "summary": {
-            //         "subtotal": data.subtotal,
-            //         "shipping_cost": data.shipping_cost,
-            //         "total_tax": data.total_tax,
-            //         "total_cost": data.total_cost
-            //       },
-            //       "elements": elementsdata
-            //     }
-            //   }
-            // }
-
-            // console.log("Example: text", text.attachment.payload.elements);
-            // return sendTextMessage(text);
-          });
-        }
-
-      const text1 = {
-        'text': ""
-      }
-
-      for (j=0; j<data.y.lenght; j++) {
-        const text = {
-              "attachment": {
-                "type": "template",
-                "payload": {
-                  "template_type": "receipt",
-                  "recipient_name": data.recipient_name,
-                  "order_number": data.order_number,
-                  "currency": data.currency,
-                  "payment_method": data.payment_method,
-                  "order_url": data.order_url,
-                  "timestamp": data.timestamp,
-                  "address": {
-                    "street_1": data.street_1,
-                    "city": data.city,
-                    "postal_code": data.postal_code,
-                    "state": data.state,
-                    "country": data.country
-                  },
-                  "summary": {
-                    "subtotal": data.subtotal,
-                    "shipping_cost": data.shipping_cost,
-                    "total_tax": data.total_tax,
-                    "total_cost": data.total_cost
-                  },
-                  "elements": [
-                    {
-                      "title": data.y[j].title,
-                      "subtitle": material[j][0].description,
-                      "quantity": data.y[j].quantity,
-                      "price": data.y[j].price,
-                      "currency": data.y[j].currency,
-                      "image_url": material[j][0].imageUrl
-                    }
-                  ]
-                }
+          const text = {
+            "attachment": {
+              "type": "template",
+              "payload": {
+                "template_type": "receipt",
+                "recipient_name": data.recipient_name,
+                "order_number": data.order_number,
+                "currency": data.currency,
+                "payment_method": data.payment_method,
+                "order_url": data.order_url,
+                "timestamp": data.timestamp,
+                "address": {
+                  "street_1": data.street_1,
+                  "city": data.city,
+                  "postal_code": data.postal_code,
+                  "state": data.state,
+                  "country": data.country
+                },
+                "summary": {
+                  "subtotal": data.subtotal,
+                  "shipping_cost": data.shipping_cost,
+                  "total_tax": data.total_tax,
+                  "total_cost": data.total_cost
+                },
+                "elements": [
+                  {
+                    "title": data.title,
+                    "subtitle": description,
+                    "quantity": data.quantity,
+                    "price": data.price,
+                    "currency": data.currency,
+                    "image_url": imageUrl
+                  }
+                ]
               }
             }
-        text1.text = text;
-        text = {
-          "attachment": {
-            "type": "",
-            "payload": {
-              "template_type": "",
-              "recipient_name": "",
-              "order_number": "",
-              "currency": "",
-              "payment_method": "",
-              "order_url": "",
-              "timestamp": "",
-              "address": {
-                "street_1": "",
-                "city": "",
-                "postal_code": "",
-                "state": "",
-                "country": ""
-              },
-              "summary": {
-                "subtotal": "",
-                "shipping_cost": "",
-                "total_tax": "",
-                "total_cost": ""
-              },
-              "elements": [
-                {
-                  "title": "",
-                  "subtitle": "",
-                  "quantity": "",
-                  "price": "",
-                  "currency": "",
-                  "image_url": ""
-                }
-              ]
-            }
           }
+          return sendTextMessage(text);
         }
-      }
-
-      console.log('send', text1.text)
-      return sendTextMessage(text1.text);
-      })
-
-      // request.get('https://'+config.username+':'+config.password+'@'+config.shop+'.myshopify.com/admin/products.json?ids='+data.productId, (err, res, body) => {
-      //   if (!err && res.statusCode == 200) {
-      //     let json = JSON.parse(body);
-
-      //     const description = striptags(json.products[0].body_html);
-      //     const imageUrl = json.products[0].image.src;
-
-      //     const text = {
-      //       "attachment": {
-      //         "type": "template",
-      //         "payload":{
-      //           "template_type":"receipt",
-      //           "recipient_name":data.recipient_name,
-      //           "order_number":data.order_number,
-      //           "currency":data.currency,
-      //           "payment_method":data.payment_method,        
-      //           "order_url":data.order_url,
-      //           "timestamp":data.timestamp,         
-      //           "address":{
-      //             "street_1":data.street_1,
-      //             "city":data.city,
-      //             "postal_code":data.postal_code,
-      //             "state":data.state,
-      //             "country":data.country
-      //           },
-      //           "summary":{
-      //             "subtotal":data.subtotal,
-      //             "shipping_cost":data.shipping_cost,
-      //             "total_tax":data.total_tax,
-      //             "total_cost":data.total_cost
-      //           },
-      //           "elements":[
-      //             {
-      //               "title":data.title,
-      //               "subtitle":description,
-      //               "quantity":data.quantity,
-      //               "price":data.price,
-      //               "currency":data.currency,
-      //               "image_url":imageUrl
-      //             }
-      //           ]
-      //         }
-      //       }
-      //     }
-      //     return sendTextMessage(text);
-      //   }
-      // });
-
-    }
+      });
+    });
   }
+
+}
